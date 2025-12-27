@@ -1,4 +1,5 @@
-let entrada = "pietro,88,azul;jonas,45,branca;lucas,62,azul;marcos,71,roxa;andre,54,branca;rafael,80,roxa;thiago,67,azul;bruno,59,azul;felipe,73,roxa;gabriel,66,azul;daniel,52,branca;leonardo,78,roxa;vinicius,64,azul;henrique,69,azul;matheus,75,roxa;"
+console.log('JS carregado')
+let entrada = "pietro,88,azul;jonas,45,branca;lucas,62,azul;marcos,71,roxa;andre,54,branca;rafael,80,roxa;thiago,67,azul;bruno,59,azul;felipe,73,roxa;gabriel,66,azul;daniel,52,branca;leonardo,74,roxa;vinicius,64,azul;henrique,69,azul;matheus,75,roxa;"
 
 const pesosMasc = [
     {categoria:"galo", pesoMax:57.5},
@@ -53,9 +54,39 @@ function orgCategoria (arrayObj, isMale){
 
 orgCategoria(atletas, true)
 
-console.log(atletas)
+//retorna um array com o nome dos atletas
+ function callAtletas(categ, faixa){
+     let array = []
+     atletas.filter(a => a.categoria === categ && a.faixa === faixa).forEach(g => {
+         array.push(g.nome)
+    })
 
+    return(array)
+}
 
+const bracket = document.createElement('section'); bracket.classList.add('bracket')
+const round = document.createElement('div'); round.classList.add('round')
 
-atletas.filter(a => a.categoria === "galo" && a.faixa === "branca").forEach(g => {
-})
+document.body.appendChild(bracket)
+bracket.appendChild(round)
+
+const arrayAtletas = callAtletas('leve', 'roxa')
+
+for (let i = 0; i < arrayAtletas.length; i+=2) {
+    const a = arrayAtletas[i]
+
+    const fight = document.createElement('div'); fight.classList.add('fight')
+
+    //fighter 1
+    const fighter = document.createElement('span'); fighter.classList.add('fighter')
+    fighter.textContent = a
+    fight.appendChild(fighter)
+
+    if(arrayAtletas[i+1]){
+        const fighter2 = document.createElement('span'); fighter.classList.add('fighter')
+        fighter2.textContent = arrayAtletas[i+1]
+        fight.appendChild(fighter2)
+    }
+
+    round.appendChild(fight)
+}
