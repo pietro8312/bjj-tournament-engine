@@ -123,6 +123,23 @@ header a:hover{
     margin-top: 4px;
 }
 
+/* Discreet, centered h1 used for empty-state or background title */
+#bg-title{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0.25rem 0.75rem;
+    font-size: 3vh;
+    font-weight: 600;
+    color: rgba(15, 23, 42, 0.274);
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+
 /* Responsive */
 @media (max-width: 560px){
     header{
