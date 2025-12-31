@@ -8,7 +8,7 @@ fighters.forEach(f => {
         }else{
             irmao = f.previousElementSibling
         }
-        irmao.style.backgroundColor = 'red'
+        if(irmao){irmao.style.backgroundColor = 'red'}
         f.style.backgroundColor = 'green'
 
         winLocation = f.parentElement.dataset.winlocation

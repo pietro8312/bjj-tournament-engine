@@ -1,0 +1,141 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body{
+    height: 100%;
+}
+
+body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: #f5f7fa;
+    color: #0f1720;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header layout */
+header{
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/* Search pill */
+#search{
+    display: flex;
+    align-items: center;
+    width: 320px;
+    height: 44px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid rgba(15,23,42,0.06);
+    box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+
+#search svg{
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    color: #64748b;
+}
+
+/* In case you add an input inside #search later */
+#search input{
+    border: none;
+    outline: none;
+    background: transparent;
+    margin-left: 10px;
+    font-size: 15px;
+    color: inherit;
+    width: 100%;
+}
+
+/* Primary button */
+header a{
+    padding: 0.55rem 1rem;
+    background: linear-gradient(180deg,#06b6d4,#0ea5e9);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 8px 18px rgba(14,165,233,0.12);
+    text-decoration: none;
+}
+
+header a:hover{
+    transform: translateY(-1px);
+}
+
+.comp{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    padding: 12px;
+    gap: 8px;
+    margin: 8px;
+    background: #f8f0ff;
+    border: 1px solid rgba(15,23,42,0.06);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(2,6,23,0.04);
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.comp:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(2,6,23,0.08);
+}
+
+/* Conteúdo interno: 1 h1 e 2 p */
+.comp h1{
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.comp p{
+    font-size: 13px;
+    color: #475569;
+    margin: 0;
+    text-align: center;
+}
+
+.comp h1 + p{
+    margin-top: 6px;
+}
+
+.comp p + p{
+    margin-top: 4px;
+}
+
+/* Responsive */
+@media (max-width: 560px){
+    header{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        margin: 1rem;
+    }
+
+    #search{
+        width: 100%;
+    }
+}
+
+/* Small utility */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
