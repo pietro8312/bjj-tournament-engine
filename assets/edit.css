@@ -1,0 +1,200 @@
+*.hidden{
+    display: none;
+}
+
+#edit{
+    position: absolute;
+    top:0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    height: 100%;
+    width: 100%;
+
+    backdrop-filter: blur(5px); 
+}
+
+#edit form{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: 10fr 15fr 12fr 10fr 10fr;
+
+    grid-template-areas: 
+        "sex x x"
+        "title title title"
+        "categ catg peso"
+        "faixa faixa faixa"
+        "btn btn btn";
+
+    background: #eef1f1;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    height: 65%;
+    width: 35%;
+    padding: 2%;
+    position: relative;
+}
+
+#edit form svg{
+    grid-area: x;
+    justify-self: end;
+    height: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#edit form svg:hover{
+    transform: scale(1.2);
+}
+
+#edit form input[type='text']{
+    grid-area: title;
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    justify-self: center;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: solid 1px;
+    background-color: transparent;
+    padding: 0 0 5px 0;
+    height: min-content;
+    width: min-content;
+    display: flex;
+    align-self: center;
+    text-align: center;
+}
+
+#edit form input[type='number']:focus, #edit form input[type='number']:focus-visible, #edit form input[type='text']:focus, #edit form input[type='text']:focus-visible{
+    outline: none;
+}
+
+#edit form *{
+    justify-self: center;
+}
+
+#edit .sex{
+    grid-area: sex;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    justify-self: left;
+}
+
+#edit .categ{
+    grid-area: catg;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    height: min-content;
+    display: flex;
+    align-self: center;
+}
+
+#edit .peso{
+    grid-area: peso;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    padding: 0 0 5px 0;
+    height: min-content;
+    width: min-content;
+    display: flex;
+    align-self: center;
+}
+
+#edit .faixa{
+    display: flex;
+    align-items: center;
+    grid-area: faixa;
+    font-size: 18px;
+    font-weight: 600;
+    justify-self: center;
+    user-select: none;
+}
+
+#edit .faixa::before, #edit .faixa::after{
+    display: block;
+    content: "";
+    height: 3px;
+    margin: 0 5px;
+    width: 100px;
+    background: #ffffff;
+    border: 1px solid #8f9191;
+}
+
+#edit .faixa.preta::before, #edit .faixa.preta::after{
+    background-color: black;
+}
+
+#edit .faixa.azul::before, #edit .faixa.azul::after{
+    background-color: blue;
+}
+
+#edit .faixa.roxa::before, #edit .faixa.roxa::after{
+    background-color: purple;
+}
+
+#edit .faixa.marrom::before, #edit .faixa.marrom::after{
+    background-color: rgb(44, 12, 12);
+}
+
+#edit .faixa.branca::before, #edit .faixa.branca::after{
+    background-color: #fff;
+}
+
+span.btn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    grid-area: btn;
+    width: 100%;
+}
+
+#edit input[type='reset'], #edit input[type='submit']{
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    border: none;
+    background-color: transparent;
+
+    height: 40px;
+    width: 120px;
+
+    border-radius: 40px;
+
+    cursor: pointer;
+    transition: transform .3s ease;
+}
+
+#edit input[type='reset']:hover, #edit input[type='submit']:hover{
+    transform: translateY(-2px) scale(105%);
+}
+
+#edit input[type='submit'] svg{
+    height: 100%;
+    width: min-content;
+}
+
+#edit input.cancel{
+    background-color: #333;
+
+}
+
+#edit input.confirm{
+    background-color: #333;
+    padding-right: 2%;
+}

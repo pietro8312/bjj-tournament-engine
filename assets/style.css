@@ -18,7 +18,7 @@ body{
 
 /* Header layout */
 header{
-    max-width: 1000px;
+    height: 10dvh;
     margin: 2rem auto;
     padding: 1rem 1.25rem;
     display: flex;
@@ -71,18 +71,34 @@ header a{
     text-decoration: none;
 }
 
+header svg{
+    height: 100%;
+}
+
 header a:hover{
     transform: translateY(-1px);
 }
 
+#comp_area{
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0 5%;
+}
+
 .comp{
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 10%;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 
+    "title sex"
+    "peso vazio"
+    "faixa vazio";
     width: 220px;
+    height: 100px;
     padding: 12px;
-    gap: 8px;
     margin: 8px;
     background: #f8f0ff;
     border: 1px solid rgba(15,23,42,0.06);
@@ -99,13 +115,36 @@ header a:hover{
     box-shadow: 0 10px 22px rgba(2,6,23,0.08);
 }
 
+.comp[data-sex="M"] {
+    background-color: #c1d4e9;
+    color: #fff;
+}
+
+.comp[data-sex="F"] {
+    background-color: #f3b6da;
+    color: #fff;
+}
+
 /* Conteúdo interno: 1 h1 e 2 p */
 .comp h1{
+    grid-area: title;
     font-size: 16px;
     font-weight: 700;
     margin: 0;
     text-align: center;
     line-height: 1.2;
+}
+
+#sex{
+    grid-area: sex;
+}
+
+#peso{
+    grid-area: peso;
+}
+
+#faixa{
+    grid-area: faixa;
 }
 
 .comp p{
