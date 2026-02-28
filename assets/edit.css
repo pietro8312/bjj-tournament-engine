@@ -5,8 +5,7 @@
 #edit{
     position: absolute;
     top:0;
-
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 
@@ -15,11 +14,11 @@
     height: 100%;
     width: 100%;
 
-    backdrop-filter: blur(5px); 
+    background-color: white;
 }
 
 #edit form{
-    display: grid;
+    display: none;
     grid-template-columns: auto auto auto;
     grid-template-rows: 10fr 15fr 12fr 10fr 10fr;
 

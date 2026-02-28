@@ -2,96 +2,93 @@ const comp = document.querySelectorAll('.comp');
 const body = document.querySelector('body');
 const edit = document.querySelector('#edit');
 
+comp.forEach(c => {
+  sex = c.querySelector('#sex').textContent
+  if(sex === 'masc'){
+    c.style.backgroundColor = '#b5c7eb';
+  }else{
+    c.style.backgroundColor = '#ff7f7f';
+  }
 
-let flag = false;
-let saveSex;
-let saveName;
-let savePeso;
-let saveFaixa;
-
-comp.forEach((c) => {
-  c.addEventListener("click", () => {
-    const id = c.dataset.id;
-    window.location.href = `main.php?id=${id}`;
-
-    saveSex = document.querySelector('#edit p.sex').textContent
-    saveName = document.getElementById('name').value;
-    savePeso = document.querySelector('#edit #peso').value
-    saveFaixa = document.querySelector('p.faixa').textContent
-  });
-});
-
-const editClose = document.querySelector('#edit form svg.close')
-
-editClose.addEventListener('click', e => {
-  edit.remove();
-});
-
-if(edit){
-  body.style.overflowY = 'hidden';
-
-  let sex = document.querySelector('p.sex')
-  sex.addEventListener('click', () => {
-    let op = ["masc", "fem"]
-    let text = sex.textContent;
-    if(text === op[0]){
-      sex.textContent = op[1]
-    }else{
-      sex.textContent = op[0]
-    }
-  });
-
-  let elFaixa = document.querySelector('#edit .faixa')
-
-  let faixa = [
-    {nome: 'branca', cor: '#fff'},
-    {nome: 'azul', cor: '#00f'},
-    {nome: 'roxa', cor: 'rgb(128, 0, 128)'},
-    {nome: 'marrom', cor: 'rgb(44, 12, 12)'},
-    {nome: 'preta', cor: '#000'}
-  ];
-
-  let fAtual = 0;
-
-  if(elFaixa){
-    for(let i = 0; i < faixa.length; i++) {
-      const f = faixa[i];
-      
-      if(elFaixa.textContent === f.nome){
-        fAtual = i;
-
-        elFaixa.classList.add(f.nome)
-      }
-
-    }
-  };
-
-  elFaixa.addEventListener('click', (f) => {
-    elFaixa.classList.remove(faixa[fAtual].nome)
-    if(fAtual < 4){
-      fAtual+=1
-      elFaixa.classList.add(faixa[fAtual].nome)
-    }else{
-      fAtual= 0
-    }
-    elFaixa.textContent = faixa[fAtual].nome
+  c.addEventListener('click', () => {
+    let id = c.querySelector('i#hide').textContent;
+    let nome = c.querySelector('h1').textContent;
+    let sex = c.querySelector('i#sex').textContent;
+    let peso = c.querySelector('p#peso').textContent;
+    let faixa = c.querySelector('p#faixa').textContent;
+    let categoria = c.querySelector('p#hide').textContent;
+    call_edit(true, id, nome, sex, peso, faixa, categoria);
   })
+});
 
-  let form = document.getElementById('formEdit')
+function call_edit(flag, id, name, sex, peso, faixa, categoria){
+  if(flag){
+    document.querySelector('#edit').style.display = 'flex';
+    document.querySelector('#edit form').style.display = 'grid'; 
+    body.style.overflowY = 'hidden';
 
-  form.addEventListener('submit', f => {
-    f.preventDefault();
-    document.querySelectorAll('[data-enviar]').forEach(e => {
-      const input = document.createElement('input');
+    edit.querySelector('#id').value = id;
+    edit.querySelector('input#name').value = name;
+    edit.querySelector('p.sex').textContent = sex;
+    edit.querySelector('input#peso').value = peso;
+    edit.querySelector('p.faixa').textContent = faixa;
+    edit.querySelector('.categ').textContent = categoria;
 
-      input.type = 'hidden';
-      input.name = e.dataset.enviar;
-      input.value = e.textContent.trim();
-
-      form.appendChild(input)
-
+    comp.forEach(c => {
+      c.classList.add('hide');
     })
-    form.submit();
-    edit.remove();
-  });
-} 
+  }else{
+    document.querySelector('#edit').style.display = 'none';
+    document.querySelector('#edit form').style.display = 'none';
+    body.style.overflowY = 'auto';
+    comp.forEach(c => {
+      c.classList.remove('hide');
+    })
+  }
+}
+
+edit.querySelector('form .close').addEventListener('click', () => {
+  call_edit();
+});
+
+
+// Sex change
+
+let sexes = ['fem', 'masc']
+edit.querySelector('.sex').addEventListener('click', () => {
+  let sex = edit.querySelector('.sex');
+  if(sex.textContent === sexes[0]){
+    sex.textContent = sexes[1];
+  }else{
+    sex.textContent = sexes[0];
+  }
+});
+
+// Belt change
+
+let belt = edit.querySelector('p.faixa');
+let faixas = ['branca', 'azul', 'roxa', 'marrom', 'preta'];
+let i = 0
+belt.addEventListener('click', () => {
+  belt.classList.remove(faixas[i]);
+  if(i>=4){
+    i=0
+  }else{
+    i++
+  }
+
+  belt.textContent = faixas[i];
+  belt.classList.add(faixas[i]);
+});
+
+
+const form = edit.querySelector('form');
+
+form.addEventListener('submit', ev => {
+  ev.preventDefault();
+
+  form.querySelector('input#inputSex').value = edit.querySelector('p.sex').textContent
+  form.querySelector('input#inputFaixa').value = edit.querySelector('p.faixa').textContent
+
+  form.submit();
+});
