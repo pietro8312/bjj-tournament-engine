@@ -54,7 +54,7 @@
         <input type="hidden" class="hide" name="faixa" id="inputFaixa" value="">
 
         <span class="btn">
-            <input type="reset" value="cancel" class="cancel">
+            <a href="" class="delete">Delete</a>
             <input type="submit" value="confirm" name="confirm" class="confirm">
         </span>
 
