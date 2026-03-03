@@ -34,6 +34,8 @@ function call_edit(flag, id, name, sex, peso, faixa, categoria){
     edit.querySelector('p.faixa').textContent = faixa;
     edit.querySelector('.categ').textContent = categoria;
 
+    form.querySelector('.delete').href = "controllers/fighterController.php?&action=delete&id="+edit.querySelector('#id').value;
+
     comp.forEach(c => {
       c.classList.add('hide');
     })

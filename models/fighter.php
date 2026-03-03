@@ -2,14 +2,14 @@
 
 class Fighter {
     public static function all($conn) {
-        return $conn->query("SELECT f.*, c.name as category_name from fighters f INNER JOIN categories c ON f.category_id = c.id")->fetchALL();
+        return $conn->query("SELECT f.*, c.name AS category_name FROM fighters f INNER JOIN categories c ON f.category_id = c.id")->fetchALL();
     }
 
     public static function update($conn, $data) {
         $stmt = $conn ->prepare("
             SELECT id 
             FROM categories 
-            WHERE sex = ? and ? BETWEEN min_weight AND max_weight
+            WHERE sex = ? AND ? BETWEEN min_weight AND max_weight
             LIMIT 1
         ");
 
@@ -38,6 +38,14 @@ class Fighter {
 
     }
 
+    public static function delete($conn, $id){
+        $stmt = $conn->prepare("
+            delete from fighters where id = ?
+        ");
+
+        return $stmt->execute([$id]);
+    }
+
     public static function search($conn, $params) {
         $stmt = $conn->prepare("
             SELECT 
@@ -59,6 +67,14 @@ class Fighter {
         $stmt->execute([$search]);
 
         return $stmt->fetchAll();
+    }
+
+    public static function countByCategory($conn,  $category_id) {
+        $stmt = $conn->prepare("
+            SELECT count(id) FROM fighters WHERE category_id = ?
+        ");
+
+        return $stmt->execute([$category_id]);
     }
 }
 

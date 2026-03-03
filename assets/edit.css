@@ -160,7 +160,7 @@ span.btn{
     width: 100%;
 }
 
-#edit input[type='reset'], #edit input[type='submit']{
+#edit a.delete, #edit input[type='submit']{
     display: flex;
     align-self: center;
     justify-self: center;
@@ -179,7 +179,7 @@ span.btn{
     transition: transform .3s ease;
 }
 
-#edit input[type='reset']:hover, #edit input[type='submit']:hover{
+#edit a.delete:hover, #edit input[type='submit']:hover{
     transform: translateY(-2px) scale(105%);
 }
 
@@ -188,7 +188,7 @@ span.btn{
     width: min-content;
 }
 
-#edit input.cancel{
+#edit a.delete{
     background-color: #333;
 
 }

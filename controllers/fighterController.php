@@ -16,4 +16,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     FighterController::update();
     header("Location: ../main.php");
 }
+
+if($_GET['action'] === 'delete'){
+    $conn = Database::connect();
+
+    Fighter::delete($conn, $_GET['id']);
+    header("Location: ../main.php");
+}
 ?>
