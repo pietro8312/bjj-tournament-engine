@@ -1,0 +1,174 @@
+body{
+    background-color: #dbdbdb;
+}
+
+/* ===== Fighter Form Styles ===== */
+
+.fighter-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fighter-form h1 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 3px solid #292f35;
+    padding-bottom: 0.5rem;
+}
+
+.fighter-form h2 {
+    color: #555;
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.fighter-form p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ===== Form Styles ===== */
+
+.fighter-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.fighter-form form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+/* ===== Labels and Input Styles ===== */
+
+.fighter-form label {
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.fighter-form input[type="text"],
+.fighter-form input[type="number"],
+.fighter-form input[type="file"] {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fighter-form input[type="text"]:focus,
+.fighter-form input[type="number"]:focus,
+.fighter-form input[type="file"]:focus {
+    outline: none;
+    border-color: #292f35;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.fighter-form input[type="text"]::placeholder,
+.fighter-form input[type="number"]::placeholder {
+    color: #999;
+}
+
+/* ===== Radio Button Styles ===== */
+
+.fighter-form span {
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.fighter-form input[type="radio"] {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.fighter-form label:has(input[type="radio"]) {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    margin-bottom: 0.3rem;
+    cursor: pointer;
+}
+
+.fighter-form div:has(input[type="radio"]) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+/* ===== Button Styles ===== */
+
+.fighter-form button {
+    padding: 0.75rem 1.5rem;
+    background-color: #292f35;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.fighter-form button:hover {
+    background-color: #191c1f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 87, 179, 0.3);
+}
+
+.fighter-form button:active {
+    transform: translateY(0);
+}
+
+/* ===== Divider Styles ===== */
+
+.fighter-form hr {
+    margin: 2rem 0;
+    border: none;
+    border-top: 2px solid #ddd;
+}
+
+/* ===== Responsive Design ===== */
+
+@media (max-width: 600px) {
+    .fighter-form {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .fighter-form h1 {
+        font-size: 1.5rem;
+    }
+
+    .fighter-form h2 {
+        font-size: 1.1rem;
+    }
+
+    .fighter-form input[type="text"],
+    .fighter-form input[type="number"],
+    .fighter-form input[type="file"] {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .fighter-form button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+    }
+}

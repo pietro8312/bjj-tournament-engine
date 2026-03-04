@@ -38,6 +38,36 @@ class Fighter {
 
     }
 
+    public static function create($conn, $data) {
+        // determine category id based on sex and weight
+        $stmt = $conn->prepare("
+            SELECT id 
+            FROM categories 
+            WHERE sex = ? AND ? BETWEEN min_weight AND max_weight
+            LIMIT 1
+        ");
+
+        $stmt->execute([$data['sex'], $data['fighter_peso']]);
+        $category_id = $stmt->fetchColumn();
+
+        if (!$category_id) {
+            // peso invalido, caller should handle this
+        }
+
+        $stmt = $conn->prepare("
+            INSERT INTO fighters (name, weight, sex, faixa, category_id)
+            VALUES (?, ?, ?, ?, ?)
+        ");
+
+        return $stmt->execute([
+            $data['fighter_name'],
+            $data['fighter_peso'],
+            $data['sex'],
+            $data['faixa'],
+            $category_id
+        ]);
+    }
+
     public static function delete($conn, $id){
         $stmt = $conn->prepare("
             delete from fighters where id = ?

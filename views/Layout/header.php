@@ -19,7 +19,7 @@
                 <input id="q" name="search" type="search" placeholder="Pesquisar..." aria-label="Pesquisar">
             </form>
             
-            <a href="views/fighters/create">+</a>
+            <a href="views/fighters/create.php">+</a>
         </span>
 
         <a href="views/bracket/create.php">Torneio</a>
