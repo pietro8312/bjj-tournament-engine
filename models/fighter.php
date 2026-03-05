@@ -5,7 +5,8 @@ class Fighter {
         return $conn->query("SELECT f.*, c.name AS category_name FROM fighters f INNER JOIN categories c ON f.category_id = c.id")->fetchALL();
     }
 
-    public static function update($conn, $data) {
+    public static function categ($conn, $sex, $peso){
+        // determine category id based on sex and weight
         $stmt = $conn ->prepare("
             SELECT id 
             FROM categories 
@@ -13,9 +14,13 @@ class Fighter {
             LIMIT 1
         ");
 
-        $stmt->execute([$data['sex'], $data['fighter_peso']]);
+        $stmt->execute([$sex, $peso]);
+        return $stmt->fetchColumn();
 
-        $category_id = $stmt->fetchColumn();
+    }
+
+    public static function update($conn, $data) {
+        $category_id = Fighter::categ($conn, $data['sex'], $data['fighter_peso']);
 
         if(!$category_id) {
             # function peso invalido
@@ -39,16 +44,7 @@ class Fighter {
     }
 
     public static function create($conn, $data) {
-        // determine category id based on sex and weight
-        $stmt = $conn->prepare("
-            SELECT id 
-            FROM categories 
-            WHERE sex = ? AND ? BETWEEN min_weight AND max_weight
-            LIMIT 1
-        ");
-
-        $stmt->execute([$data['sex'], $data['fighter_peso']]);
-        $category_id = $stmt->fetchColumn();
+        $category_id = Fighter::categ($conn, $data['sex'], $data['fighter_peso']);
 
         if (!$category_id) {
             // peso invalido, caller should handle this

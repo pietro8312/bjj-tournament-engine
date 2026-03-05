@@ -25,6 +25,8 @@
 
         <input  id="id" type="hidden" name="fighter_id" class="hide">
 
+        <input type="hidden" name="action" value="update">
+
         <input
             id="name"
             type="text"

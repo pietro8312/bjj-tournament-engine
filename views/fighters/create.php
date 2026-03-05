@@ -1,6 +1,5 @@
 <?php
-#add_css('fighterAdd.css');
-#require 'views/Layout/header.php';
+    require '../../models/fighter.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +14,7 @@
     <section class="fighter-form">
         <h1>Registrar Lutador</h1>
         <form action="../../controllers/fighterController.php" method="POST" class="single">
+            <input type="hidden" name="action" value="create">
             <div>
                 <label for="name">Nome</label>
                 <input id="name" name="fighter_name" type="text" required>
@@ -40,6 +40,7 @@
         <h2>Importar vários lutadores</h2>
         <p>Envie um arquivo CSV com linhas no formato <code>nome,peso,faixa</code>. Você deve selecionar o sexo comum a todos os atletas.</p>
         <form action="../../cadastro.php" method="POST" enctype="multipart/form-data" class="batch">
+            <input type="hidden" name="action" value="pluriCreate">
             <div>
                 <span>Sexo dos atletas</span>
                 <label><input type="radio" name="sex" value="masc" required> Masc</label>
@@ -54,7 +55,3 @@
     </section>
 </body>
 </html>
-
-    <?php
-    #require 'views/Layout/footer.php';
-    ?>
