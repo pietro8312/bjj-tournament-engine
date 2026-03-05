@@ -15,19 +15,33 @@ class FighterController {
     }
 }
 
+
+
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // decide whether creating or updating depending on if an id was provided
-    if(!empty($_POST['fighter_id'])) {
-        FighterController::update();
-    } else {
+    $temp = $_POST['action'];
+
+}elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $temp = $_GET['action'];
+}else{
+    return header("Location: ../main.php");
+}
+    $conn = Database::connect();
+
+switch ($temp) {
+    case 'create':
         FighterController::create();
-    }
-    header("Location: ../main.php");
+        break;
+    
+    case 'update':
+        FighterController::update();
+        break;
+
+    case 'delete':
+        Fighter::delete($conn, $_GET['id']);
+        break;    
+    default:
+        break;
 }
 
-if(isset($_GET['action']) && $_GET['action'] === 'delete'){
-    $conn = Database::connect();
-    Fighter::delete($conn, $_GET['id']);
-    header("Location: ../main.php");
-}
+header("Location: ../main.php");
 ?>
