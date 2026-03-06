@@ -103,6 +103,15 @@ class Fighter {
         $stmt->execute([$category_id]);
         return $stmt->fetchColumn();
     }
+
+    public static function fighterByCategory($conn, $category_id){
+        $stmt = $conn->prepare("
+            SELECT id FROM fighters WHERE category_id = ?
+        ");
+
+        $stmt->execute([$category_id]);
+        return $stmt->fetchAll();
+    }
 }
 
 ?>

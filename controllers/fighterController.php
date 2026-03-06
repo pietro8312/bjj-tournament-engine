@@ -47,7 +47,7 @@ switch ($temp) {
         $fighters = (INT) Fighter::countByCategory($conn, $category);
 
         echo json_encode([
-            "fighters" => $fighters,
+            "fighters" => $fighters
         ]);
         exit;
         break;
