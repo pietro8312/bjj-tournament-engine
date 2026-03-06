@@ -1,0 +1,289 @@
+/* ===== Tournament Create Page Styles ===== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #0f1720;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(135deg, #292f35 0%, #3a4048 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* ===== Main Container ===== */
+
+main, .bracket-create, .brackets-list {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* ===== Bracket Create Form ===== */
+
+.bracket-create {
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    margin-bottom: 3rem;
+}
+
+.bracket-create h1 {
+    color: #292f35;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid #292f35;
+    padding-bottom: 0.75rem;
+    text-align: center;
+}
+
+/* ===== Form Structure ===== */
+
+#bracketForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #292f35;
+    font-size: 1rem;
+}
+
+.form-group select {
+    padding: 0.8rem 1rem;
+    border: 2px solid #e0e7ff;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9f9fc;
+    color: #0f1720;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-group select:hover {
+    border-color: #c7d2fe;
+    background-color: #f5f6ff;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* ===== Info Section ===== */
+
+#fighters-info {
+    background: #f0f4f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #6366f1;
+}
+
+#fighters-info p {
+    color: #555;
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+}
+
+#lutadores, #lutas {
+    font-weight: 500;
+    color: #292f35;
+}
+
+/* ===== Submit Button ===== */
+
+.btn-primary {
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* ===== Brackets List Section ===== */
+
+.brackets-list {
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.brackets-list h2 {
+    color: #292f35;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e0e7ff;
+    padding-bottom: 0.75rem;
+}
+
+#brackets-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #999;
+    font-size: 1.1rem;
+    padding: 3rem 1rem;
+}
+
+/* ===== Bracket Card (for future use) ===== */
+
+.bracket-card {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.bracket-card:hover {
+    border-color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+}
+
+.bracket-card h3 {
+    color: #292f35;
+    margin-bottom: 0.5rem;
+}
+
+.bracket-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ===== Utility Classes ===== */
+
+.hide {
+    display: none !important;
+}
+
+/* ===== Responsive Design ===== */
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    .bracket-create,
+    .brackets-list {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    .bracket-create h1,
+    .brackets-list h2 {
+        font-size: 1.4rem;
+    }
+
+    #bracketForm {
+        gap: 1.2rem;
+    }
+
+    .form-group select {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .btn-primary {
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    #brackets-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+    }
+
+    header {
+        padding: 1.5rem 1rem;
+    }
+
+    header h1 {
+        font-size: 1.3rem;
+    }
+
+    .bracket-create,
+    .brackets-list {
+        padding: 1.2rem;
+        border-radius: 8px;
+    }
+
+    .bracket-create h1,
+    .brackets-list h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    #bracketForm {
+        gap: 1rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-group select {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+    }
+}

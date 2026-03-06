@@ -38,10 +38,23 @@ switch ($temp) {
 
     case 'delete':
         Fighter::delete($conn, $_GET['id']);
-        break;    
+        break;
+
+    case 'contByCategory':
+
+        $category = $_POST['category_m'] ?? $_POST['category_f'];
+
+        $fighters = (INT) Fighter::countByCategory($conn, $category);
+
+        echo json_encode([
+            "fighters" => $fighters,
+        ]);
+        exit;
+        break;
+
     default:
         break;
 }
 
-header("Location: ../main.php");
+    header("Location: ../main.php");
 ?>

@@ -100,7 +100,8 @@ class Fighter {
             SELECT count(id) FROM fighters WHERE category_id = ?
         ");
 
-        return $stmt->execute([$category_id]);
+        $stmt->execute([$category_id]);
+        return $stmt->fetchColumn();
     }
 }
 
