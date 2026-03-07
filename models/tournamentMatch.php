@@ -14,32 +14,31 @@
 
         }
 
-        public static function setFighters($conn, $category_id, $fighter_red, $fighter_blue) {
+        public static function setFighters($conn, $id_category, $fighter_red, $fighter_blue) {
             if(isset($fighter_blue) && isset($fighter_red)){
                 $stmt = $conn->prepare("
                     UPDATE matches 
                     SET fighter_red_id = ?, fighter_blue_id = ?
-                    WHERE category  = ?
+                    WHERE id = ?
                 ");
 
-                return $stmt->execute([$fighter_red, $fighter_blue, $category_id]);
             }else if(isset($fighter_blue)){
                 $stmt = $conn->prepare("
                     UPDATE matches
                     SET fighter_blue_id = ?, winner_id = ?
-                    WHERE category  = ?
+                    WHERE id = ?
                 ");
 
-                return $stmt->execute([$fighter_blue, $fighter_blue, $category_id]);
             }else if(isset($fighter_red)){
                 $stmt = $conn->prepare("
                     UPDATE matches
                     SET fighter_red_id = ?, winner_id = ?
-                    WHERE category  = ?
+                    WHERE id = ?
                 ");
 
-                return $stmt->execute([$fighter_red, $fighter_red, $category_id]);
             }
+
+            return $stmt->execute([$fighter_red, $fighter_blue, $id_category]);
         }
 
         public static function setWinner($conn, $category_id, $winner_id) {
@@ -60,7 +59,18 @@
 
             $stmt->execute([$id]);
 
-            return $stmt->fetchAll();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function getMatchesByCategoryAndRound($conn, $id, $round) {
+                $stmt = $conn->prepare("
+                    SELECT * FROM matches
+                    WHERE category = ? and round = ?
+                ");
+
+                $stmt->execute([$id, $round]);
+
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 ?>

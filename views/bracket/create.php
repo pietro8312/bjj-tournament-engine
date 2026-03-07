@@ -16,8 +16,8 @@
         <section class="bracket-create">
             <h1>Novo Chaveamento</h1>
             
-            <form id="bracketForm" action="../../" method="POST">
-                <input type="hidden" name="action" value="contByCategory">
+            <form id="bracketForm" action="../../controllers/bracketController.php" method="POST">
+                <input type="hidden" name="action" value="generate">
                 
                 <div class="form-group">
                     <label for="sex">Sexo do Atleta</label>

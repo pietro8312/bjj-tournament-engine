@@ -17,37 +17,28 @@ class Bracket {
         $total_matches = $size-1;
         $round = log($size, 2);
 
-        $matchesByRound = [];
-        $matchesInRound = $total_matches/2;
-        for ($r=1; $r <= $round; $r++) { 
-            for ($m=1; $m <= $matchesInRound; $m++) { 
-                $stmt = $conn->prepare("
-                    INSERT INTO matches(category_id, round, status)
-                    VALUES (?, ?, 'pending')
-                ");
-                
-                $stmt->execute([$category_id, $r]);
-                $matchesByRound[$r][] = $conn->lastInsertId();
+        for ($i=1; $i <= $round; $i++) { 
+            for($j=1; $j <= $size/2; $j++){
+                TournamentMatch::createMatch($conn, $category_id, $i);
             }
-            $matchesInRound = $matchesInRound/2;
+            $size = $size/2;
+        }
+    }
+
+    public static function seedFighters($conn, $category_id){
+        $matches = TournamentMatch::getMatchesByCategoryAndRound($conn, $category_id, 1);
+        $matchesCount = count($matches);
+
+        $fighters = Fighter::fighterByCategory($conn, $category_id);
+        shuffle($fighters);
+        $fighterCount = count($fighters);
+
+        while($fighterCount < $matchesCount){
+            $fighters[] = null;
         }
 
-        $fighterIndex = 0;
-
-        foreach($matchesByRound[1] as $matchId) {
-            $red = $fighter[$fighterIndex]['id'] ?? null;
-            $fighterIndex++;
-
-            $blue = $fighter[$fighterIndex]['id'] ?? null;
-            $fighterIndex++;
-
-            $stmt = $conn->prepare("
-                UPDATE matches
-                SET fighter_red_id = ?, fighter_blue_id ?
-                WHERE id = ?
-            ");
-
-            $stmt->execute([$red, $blue, $matchId]);
+        for ($i=0; $i < $matchesCount; $i++) {
+            TournamentMatch::setFighters($conn, $matches[$i]['id'], $fighters[$i * 2]['id'], $fighters[($i * 2) + 1]['id']);
         }
     }
 }

@@ -110,7 +110,7 @@ class Fighter {
         ");
 
         $stmt->execute([$category_id]);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 
