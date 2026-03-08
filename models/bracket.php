@@ -1,29 +1,48 @@
 <?php 
-
+require_once '../models/fighter.php';
+require_once '../models/tournamentMatch.php';
 
 class Bracket {
-    public static function generate($conn, $category_id) {
+public static function generate($conn, $category_id) {
 
-        $stmt = $conn->prepare("
-            SELECT id FROM fighters WHERE category_id = ?
-        ");
+    $fighters = Fighter::countByCategory($conn, $category_id);
 
-        $stmt->execute([$category_id]);
-        $fighter = $stmt->fetchAll();
-        shuffle($fighter);
-
-        #size do bracket
-        $size = pow(2, ceil(log(count($fighter), 2)));
-        $total_matches = $size-1;
-        $round = log($size, 2);
-
-        for ($i=1; $i <= $round; $i++) { 
-            for($j=1; $j <= $size/2; $j++){
-                TournamentMatch::createMatch($conn, $category_id, $i);
-            }
-            $size = $size/2;
-        }
+    if($fighters < 2){
+        return false;
     }
+
+    // tamanho do bracket (2,4,8,16...)
+    $size = pow(2, ceil(log($fighters, 2)));
+
+    $rounds = (INT) log($size, 2);
+
+    $previousRound = [];
+
+    // ROUND 1
+    for ($i = 0; $i < $size / 2; $i++) {
+        $matchId = TournamentMatch::createMatch($conn, $category_id, 1);
+        $previousRound[] = $matchId;
+    }
+
+    // PRÓXIMOS ROUNDS
+    for ($round = 2; $round <= $rounds; $round++) {
+
+        $nextRound = [];
+
+        for ($i = 0; $i < count($previousRound); $i += 2) {
+
+            $matchId = TournamentMatch::createMatch($conn, $category_id, $round);
+
+            TournamentMatch::setNextMatch($conn, $previousRound[$i], $matchId);
+            TournamentMatch::setNextMatch($conn, $previousRound[$i + 1], $matchId);
+
+            $nextRound[] = $matchId;
+        }
+
+        $previousRound = $nextRound;
+    }
+
+}
 
     public static function seedFighters($conn, $category_id){
         $matches = TournamentMatch::getMatchesByCategoryAndRound($conn, $category_id, 1);
@@ -31,14 +50,15 @@ class Bracket {
 
         $fighters = Fighter::fighterByCategory($conn, $category_id);
         shuffle($fighters);
-        $fighterCount = count($fighters);
 
-        while($fighterCount < $matchesCount){
+        while(count($fighters) < ($matchesCount * 2)){
             $fighters[] = null;
         }
 
         for ($i=0; $i < $matchesCount; $i++) {
-            TournamentMatch::setFighters($conn, $matches[$i]['id'], $fighters[$i * 2]['id'], $fighters[($i * 2) + 1]['id']);
+            $f1 = $fighters[$i * 2]['id'] ?? null;
+            $f2 = $fighters[($i * 2) + 1]['id'] ?? null;
+            TournamentMatch::setFighters($conn, $matches[$i]['id'], $f1, $f2);
         }
     }
 }

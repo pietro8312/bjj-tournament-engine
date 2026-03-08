@@ -7,36 +7,25 @@
                 VALUES (?, ?, 'pending')
             ");
 
-            return $stmt->execute([$category_id, $round, 'pending']);
+            return $stmt->execute([$category_id, $round]);
         }
 
         public static function setNextMatch($conn, $id, $next_match_id){
+            $stmt = $conn->prepare("
+                    UPDATE matches 
+                    SET next_match_id = ?
+                    WHERE id = ?
+            ");
 
+            return $stmt->execute([$next_match_id, $id]);
         }
 
         public static function setFighters($conn, $id_category, $fighter_red, $fighter_blue) {
-            if(isset($fighter_blue) && isset($fighter_red)){
-                $stmt = $conn->prepare("
-                    UPDATE matches 
-                    SET fighter_red_id = ?, fighter_blue_id = ?
-                    WHERE id = ?
-                ");
-
-            }else if(isset($fighter_blue)){
-                $stmt = $conn->prepare("
-                    UPDATE matches
-                    SET fighter_blue_id = ?, winner_id = ?
-                    WHERE id = ?
-                ");
-
-            }else if(isset($fighter_red)){
-                $stmt = $conn->prepare("
-                    UPDATE matches
-                    SET fighter_red_id = ?, winner_id = ?
-                    WHERE id = ?
-                ");
-
-            }
+            $stmt = $conn->prepare("
+                UPDATE matches 
+                SET fighter_red_id = ?, fighter_blue_id = ?
+                WHERE id = ?
+            ");
 
             return $stmt->execute([$fighter_red, $fighter_blue, $id_category]);
         }
