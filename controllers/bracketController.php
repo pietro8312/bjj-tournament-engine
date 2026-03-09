@@ -7,10 +7,10 @@
 
         switch ($_POST['action']) {
             case 'generate':
-                Bracket::generate($conn, $_POST['category_m']);
+                $bracket_id = Bracket::create($conn, $_POST['category_m']);
+                Bracket::generate($conn, $_POST['category_m'], $bracket_id);
                 Bracket::seedFighters($conn, $_POST['category_m']);
                 break;
-
             default:
                 # code...
                 break;

@@ -1,13 +1,13 @@
 <?php 
     
     class TournamentMatch{
-        public static function createMatch($conn, $category_id, $round) {
+        public static function createMatch($conn, $bracket_id, $round) {
             $stmt = $conn->prepare("
-                INSERT INTO matches (category, round, status)
+                INSERT INTO matches (bracket_id, round, status)
                 VALUES (?, ?, 'pending')
             ");
 
-            return $stmt->execute([$category_id, $round]);
+            return $stmt->execute([$bracket_id, $round]);
         }
 
         public static function setNextMatch($conn, $id, $next_match_id){
@@ -20,44 +20,49 @@
             return $stmt->execute([$next_match_id, $id]);
         }
 
-        public static function setFighters($conn, $id_category, $fighter_red, $fighter_blue) {
+        public static function setFighters($conn, $id, $fighter_red, $fighter_blue) {
             $stmt = $conn->prepare("
                 UPDATE matches 
                 SET fighter_red_id = ?, fighter_blue_id = ?
                 WHERE id = ?
             ");
 
-            return $stmt->execute([$fighter_red, $fighter_blue, $id_category]);
+            return $stmt->execute([$fighter_red, $fighter_blue, $id]);
         }
 
-        public static function setWinner($conn, $category_id, $winner_id) {
+        public static function setWinner($conn, $id, $winner_id) {
             $stmt = $conn->prepare("
                 UPDATE matches 
                 SET winner_id = ?
-                WHERE category  = ?
+                WHERE id  = ?
             ");
 
-            return $stmt->execute([$winner_id, $category_id]);
+            return $stmt->execute([$winner_id, $id]);
         }
 
-        public static function getMatchesByCategory($conn, $id) {
+        public static function getMatchesByCategory($conn, $bracket_id) {
             $stmt = $conn->prepare("
-                SELECT * FROM matches
-                WHERE category = ?
+                SELECT m.*
+                FROM matches m
+                JOIN brackets b ON m.bracket_id = b.id
+                WHERE b.category_id = ?
             ");
 
-            $stmt->execute([$id]);
+            $stmt->execute([$bracket_id]);
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public static function getMatchesByCategoryAndRound($conn, $id, $round) {
+        public static function getMatchesByCategoryAndRound($conn, $category_id, $round) {
                 $stmt = $conn->prepare("
-                    SELECT * FROM matches
-                    WHERE category = ? and round = ?
+                    SELECT m.*
+                    FROM matches m
+                    JOIN brackets b ON m.bracket_id = b.id
+                    WHERE b.category_id = ?
+                    AND m.round = ?
                 ");
 
-                $stmt->execute([$id, $round]);
+                $stmt->execute([$category_id, $round]);
 
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
