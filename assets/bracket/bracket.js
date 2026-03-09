@@ -32,7 +32,7 @@ function fetchFighters(category){
 
     const formData = new FormData();
     formData.append('action', 'contByCategory');
-    formData.append('category_m', category);
+    formData.append('category', category);
 
     fetch('../../controllers/fighterController.php', {
         method: 'POST',

@@ -42,7 +42,7 @@ switch ($temp) {
 
     case 'contByCategory':
 
-        $category = $_POST['category_m'] ?? $_POST['category_f'];
+        $category = $_POST['category'];
 
         $fighters = (INT) Fighter::countByCategory($conn, $category);
 
