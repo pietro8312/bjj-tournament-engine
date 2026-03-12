@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/bracket/tournament-create.css">
-    <script src="../../assets/bracket/bracket.js" defer></script>
+    <link rel="stylesheet" href="<?= ASSETS_URL ?>/bracket/tournament-create.css">
+    <link rel="stylesheet" href="<?= ASSETS_URL ?>/bracket/bracket.css">
+    <script src="<?= ASSETS_URL ?>/bracket/bracket.js" defer></script>
     <title>Criar Chaveamento</title>
 </head>
 <body>
@@ -16,7 +17,7 @@
         <section class="bracket-create">
             <h1>Novo Chaveamento</h1>
             
-            <form id="bracketForm" action="../../controllers/bracketController.php" method="POST">
+            <form id="bracketForm" action="<?= CONTROLLERS_URL ?>bracketController.php" method="POST">
                 <input type="hidden" name="action" value="generate">
                 
                 <div class="form-group">
@@ -43,6 +44,8 @@
                     </select>
                 </div>
 
+                <input type="hidden" name="category" id="category" value="">
+
                 <div class="form-group">
                     <select name="category_f" id="F_categ" class="hide select" required>
                         <option value="">Selecione a categoria</option>
@@ -64,15 +67,3 @@
             </form>
         </section>
 
-        <section class="brackets-list">
-            <h2>Chaveamentos Existentes</h2>
-            <?php 
-                #chamar uma list.php dos chaveamentos
-            ?>
-            <div id="brackets-container">
-                <p class="empty-state">Nenhum chaveamento existente</p>
-            </div>
-        </section>
-    </main>
-</body>
-</html>
