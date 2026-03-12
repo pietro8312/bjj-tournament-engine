@@ -1,0 +1,106 @@
+#brackets-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.bracket-card{
+    background: rgb(238, 238, 238);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #d8d8d8;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.bracket-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* botão do svg */
+.bracket-card > a{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.bracket-card > a:hover{
+    background: rgba(0,0,0,0.08);
+}
+
+/* tamanho do svg */
+.bracket-card svg{
+    width: 18px;
+    height: 18px;
+}
+
+/* efeito no icone ao passar mouse */
+.bracket-card > a:hover svg path{
+    stroke: #c0392b;
+}
+
+.bracket-card h3{
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.bracket-status{
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.status-pending{
+    background: #fff4cc;
+    color: #b58b00;
+}
+
+.status-in_progress{
+    background: #d6ecff;
+    color: #0077cc;
+}
+
+.status-finished{
+    background: #dff5e4;
+    color: #1f8f3f;
+}
+
+.bracket-actions{
+    margin-top: 10px;
+}
+
+.bracket-actions a{
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+    background: #2f6fed;
+    padding: 7px 12px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.bracket-actions a:hover{
+    background: #1f55c4;
+}
+
+.empty-state{
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #777;
+    font-size: 16px;
+}

@@ -4,7 +4,7 @@ const fem_categ = document.getElementById('F_categ');
 const mas_categ = document.getElementById('M_categ');
 
 const lutadores = document.getElementById('lutadores');
-
+let category;
 
 // controlar qual categoria aparece
 sex.addEventListener('change', () => {
@@ -34,7 +34,7 @@ function fetchFighters(category){
     formData.append('action', 'contByCategory');
     formData.append('category', category);
 
-    fetch('../../controllers/fighterController.php', {
+    fetch('/proj-irene/controllers/fighterController.php', {
         method: 'POST',
         body: formData
     })
@@ -43,6 +43,9 @@ function fetchFighters(category){
 
         lutadores.textContent = `Lutadores: ${data.fighters}`;
 
+    })
+    .catch(err => {
+        console.error(err);
     });
 
 }
@@ -51,7 +54,7 @@ function fetchFighters(category){
 // evento masculino
 mas_categ.addEventListener('change', () => {
 
-    const category = mas_categ.value;
+    category = mas_categ.value;
 
     if(category){
         fetchFighters(category);
@@ -63,10 +66,18 @@ mas_categ.addEventListener('change', () => {
 // evento feminino
 fem_categ.addEventListener('change', () => {
 
-    const category = fem_categ.value;
+    category = fem_categ.value;
 
     if(category){
         fetchFighters(category);
     }
 
+});
+
+let cat = document.getElementById('category');
+
+bracketForm.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    cat.value = category;
+    bracketForm.submit();
 });
