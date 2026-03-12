@@ -1,4 +1,5 @@
 <?php 
+    require_once __DIR__ . '/../config/connection.php';
     
     class TournamentMatch{
         public static function createMatch($conn, $bracket_id, $round) {
@@ -7,7 +8,9 @@
                 VALUES (?, ?, 'pending')
             ");
 
-            return $stmt->execute([$bracket_id, $round]);
+            $stmt->execute([$bracket_id, $round]);
+
+            return $conn->LastInsertId();
         }
 
         public static function setNextMatch($conn, $id, $next_match_id){
@@ -18,6 +21,16 @@
             ");
 
             return $stmt->execute([$next_match_id, $id]);
+        }
+
+        public static function setNextPosition($conn, $id, $position){
+            $stmt = $conn->prepare("
+                UPDATE matches
+                SET next_match_position = ?
+                WHERE id = ?
+            ");
+
+            return $stmt->execute([$position, $id]);
         }
 
         public static function setFighters($conn, $id, $fighter_red, $fighter_blue) {
