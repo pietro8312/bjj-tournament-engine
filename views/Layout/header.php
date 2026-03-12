@@ -22,7 +22,5 @@
             <a href="views/fighters/create.php">+</a>
         </span>
 
-        <a href="views/bracket/create.php">Torneio</a>
-
-
+        <a href="controllers/bracketController.php?action=all">Torneio</a>
     </header>
