@@ -1,20 +1,26 @@
 <?php
 
-use FTP\Connection;
-
-require_once '../models/fighter.php';
-require_once '../models/tournamentMatch.php';
+require_once 'fighter.php';
+require_once 'tournamentMatch.php';
 
 class Bracket {
     public static function create($conn, $category_id){
         $stmt = $conn->prepare("
             INSERT INTO brackets (category_id, status)
-            VALUE (?, 'pending')
+            VALUES (?, 'pending')
         ");
 
         $stmt->execute([$category_id]);
 
         return $conn->LastInsertId();
+    }
+
+    public static function delete($conn, $id){
+        $stmt = $conn->prepare("
+            DELETE FROM brackets where id = ?
+        ");
+
+        $stmt->execute([$id]);
     }
 
     public static function generate($conn, $category_id, $bracket_id) {
@@ -45,7 +51,8 @@ class Bracket {
 
             for ($i = 0; $i < count($previousRound); $i += 2) {
 
-                $matchId = TournamentMatch::createMatch($conn, $bracket_id, $round);
+                TournamentMatch::createMatch($conn, $bracket_id, $round);
+                $matchId = $conn->lastInsertId();
 
                 TournamentMatch::setNextMatch($conn, $previousRound[$i], $matchId);
                 TournamentMatch::setNextMatch($conn, $previousRound[$i + 1], $matchId);
@@ -54,6 +61,20 @@ class Bracket {
             }
 
             $previousRound = $nextRound;
+        }
+
+        $matches = TournamentMatch::getMatchesByCategory($conn, $bracket_id);
+
+        $temp = true;
+        foreach ($matches as $m) {
+            if($temp){
+                #red
+                TournamentMatch::setNextPosition($conn, $m['id'], 'red');
+                $temp = !$temp;
+            }else{
+                TournamentMatch::setNextPosition($conn, $m['id'], 'blue');
+                $temp = !$temp;
+            }
         }
     }
 
@@ -67,7 +88,6 @@ class Bracket {
         while(count($fighters) < ($matchesCount * 2)){
             $fighters[] = null;
         }
-
         for ($i=0; $i < $matchesCount; $i++) {
             $f1 = $fighters[$i * 2]['id'] ?? null;
             $f2 = $fighters[($i * 2) + 1]['id'] ?? null;
@@ -75,10 +95,8 @@ class Bracket {
         }
     }
 
-    public static function getBrackets($conn, $category_id){
-        $stmt = $conn->preparea("
-            SELECT *
-        ");
+    public static function all($conn){
+        return $conn->query("SELECT b.*, c.name as cname FROM brackets b INNER JOIN categories c on b.category_id = c.id")->fetchAll();
     }
 }
 ?>

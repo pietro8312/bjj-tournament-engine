@@ -42,15 +42,17 @@ switch ($temp) {
 
     case 'contByCategory':
 
+        header('Content-Type: application/json');
+
         $category = $_POST['category'];
 
-        $fighters = (INT) Fighter::countByCategory($conn, $category);
+        $fighters = (int) Fighter::countByCategory($conn, $category);
 
         echo json_encode([
             "fighters" => $fighters
         ]);
-        exit;
-        break;
+
+    exit;
 
     default:
         break;
