@@ -13,7 +13,7 @@
                 }
                 $bracket_id = Bracket::create($conn, $_POST['category']);
                 Bracket::generate($conn, $_POST['category'], $bracket_id);
-                Bracket::seedFighters($conn, $_POST['category']);
+                Bracket::seedFighters($conn, $bracket_id, $_POST['category']);
                 break;
             default:
                 # code...
@@ -32,6 +32,13 @@
                 exit (header("Location: /proj-irene/controllers/bracketController.php?action=all"));
 
                 break;
+
+            case 'show':
+                $matches = Bracket::allMatches($conn, $_GET['id']);
+                $doubleBracket = false;
+                if(count($matches) >= 14){
+                    $doubleBracket = true;
+                }
             default:
                 # code...
                 break;
