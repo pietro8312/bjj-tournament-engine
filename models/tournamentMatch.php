@@ -53,12 +53,12 @@
             return $stmt->execute([$winner_id, $id]);
         }
 
-        public static function getMatchesByCategory($conn, $bracket_id) {
+        public static function getMatchesByBracket($conn, $bracket_id) {
             $stmt = $conn->prepare("
-                SELECT m.*
-                FROM matches m
-                JOIN brackets b ON m.bracket_id = b.id
-                WHERE b.category_id = ?
+                SELECT *
+                FROM matches
+                WHERE bracket_id = ?
+                ORDER BY round ASC, id ASC;
             ");
 
             $stmt->execute([$bracket_id]);
@@ -66,16 +66,16 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public static function getMatchesByCategoryAndRound($conn, $category_id, $round) {
+        public static function getMatchesByBracketAndRound($conn, $bracket_id, $round) {
                 $stmt = $conn->prepare("
                     SELECT m.*
                     FROM matches m
                     JOIN brackets b ON m.bracket_id = b.id
-                    WHERE b.category_id = ?
+                    WHERE m.bracket_id = ?
                     AND m.round = ?
                 ");
 
-                $stmt->execute([$category_id, $round]);
+                $stmt->execute([$bracket_id, $round]);
 
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }

@@ -40,7 +40,7 @@ class Bracket {
 
         // ROUND 1
         for ($i = 0; $i < $size / 2; $i++) {
-            $matchId = TournamentMatch::createMatch($conn, $bracket_id, 1, 1);
+            $matchId = TournamentMatch::createMatch($conn, $bracket_id, 1);
             $previousRound[] = $matchId;
         }
 
@@ -63,23 +63,18 @@ class Bracket {
             $previousRound = $nextRound;
         }
 
-        $matches = TournamentMatch::getMatchesByCategory($conn, $bracket_id);
+        $matches = TournamentMatch::getMatchesBybracket($conn, $bracket_id);
 
-        $temp = true;
-        foreach ($matches as $m) {
-            if($temp){
-                #red
-                TournamentMatch::setNextPosition($conn, $m['id'], 'red');
-                $temp = !$temp;
-            }else{
-                TournamentMatch::setNextPosition($conn, $m['id'], 'blue');
-                $temp = !$temp;
-            }
+        foreach ($matches as $i => $m) {
+
+            $position = ($i % 2 === 0) ? 'red' : 'blue';
+
+            TournamentMatch::setNextPosition($conn, $m['id'], $position);
         }
     }
 
-    public static function seedFighters($conn, $category_id){
-        $matches = TournamentMatch::getMatchesByCategoryAndRound($conn, $category_id, 1);
+    public static function seedFighters($conn, $bracket_id, $category_id){
+        $matches = TournamentMatch::getMatchesByBracketAndRound($conn, $bracket_id, 1);
         $matchesCount = count($matches);
 
         $fighters = Fighter::fighterByCategory($conn, $category_id);
@@ -97,6 +92,26 @@ class Bracket {
 
     public static function all($conn){
         return $conn->query("SELECT b.*, c.name as cname FROM brackets b INNER JOIN categories c on b.category_id = c.id")->fetchAll();
+    }
+
+    public static function allMatches($conn, $bracket_id){
+        $stmt = $conn->prepare("
+            SELECT 
+                m.*, 
+                fr.name as red_name,
+                fb.name as blue_name
+            FROM matches m
+
+            LEFT JOIN  fighters fr
+            ON m.fighter_red_id = fr.id
+
+            LEFT JOIN fighters fb
+            ON m.fighter_blue_id = fb.id
+
+            WHERE m.bracket_id = ?;
+            ");
+        $stmt->execute([$bracket_id]);
+        return $stmt->fetchAll();
     }
 }
 ?>
