@@ -1,69 +1,54 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= ASSETS_URL ?>/bracket/tournament-create.css">
-    <link rel="stylesheet" href="<?= ASSETS_URL ?>/bracket/bracket.css">
-    <script src="<?= ASSETS_URL ?>/bracket/bracket.js" defer></script>
-    <title>Criar Chaveamento</title>
-</head>
-<body>
-    <header>
-        <h1>⚔️ Criar Chaveamento</h1>
-    </header>
-
-    <main>
-        <section class="bracket-create">
-            <h1>Novo Chaveamento</h1>
+<main>
+    <section class="bracket-create">
+        <h1>Novo Chaveamento</h1>
+        
+        <form id="bracketForm" action="<?= CONTROLLERS_URL ?>bracketController.php" method="POST">
+            <input type="hidden" name="action" value="generate">
             
-            <form id="bracketForm" action="<?= CONTROLLERS_URL ?>bracketController.php" method="POST">
-                <input type="hidden" name="action" value="generate">
-                
-                <div class="form-group">
-                    <label for="sex">Sexo do Atleta</label>
-                    <select name="sex" id="sex" required>
-                        <option value="">Selecione o sexo</option>
-                        <option value="fem">Feminino</option>
-                        <option value="masc">Masculino</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="sex">Sexo do Atleta</label>
+                <select name="sex" id="sex" required>
+                    <option value="">Selecione o sexo</option>
+                    <option value="fem">Feminino</option>
+                    <option value="masc">Masculino</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <select name="category_m" id="M_categ" class="hide select" required>
-                        <option value="">Selecione a categoria</option>
-                        <option value="1">Galo</option>
-                        <option value="2">Pluma</option>
-                        <option value="3">Pena</option>
-                        <option value="4">Leve</option>
-                        <option value="5">Médio</option>
-                        <option value="6">Meio Pesado</option>
-                        <option value="7">Pesado</option>
-                        <option value="8">Super Pesado</option>
-                        <option value="9">Pesadíssimo</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <select name="category_m" id="M_categ" class="hide select" required>
+                    <option value="">Selecione a categoria</option>
+                    <option value="1">Galo</option>
+                    <option value="2">Pluma</option>
+                    <option value="3">Pena</option>
+                    <option value="4">Leve</option>
+                    <option value="5">Médio</option>
+                    <option value="6">Meio Pesado</option>
+                    <option value="7">Pesado</option>
+                    <option value="8">Super Pesado</option>
+                    <option value="9">Pesadíssimo</option>
+                </select>
+            </div>
 
-                <input type="hidden" name="category" id="category" value="">
+            <input type="hidden" name="category" id="category" value="">
 
-                <div class="form-group">
-                    <select name="category_f" id="F_categ" class="hide select" required>
-                        <option value="">Selecione a categoria</option>
-                        <option value="10">Galo</option>
-                        <option value="11">Pluma</option>
-                        <option value="12">Pena</option>
-                        <option value="13">Leve</option>
-                        <option value="14">Médio</option>
-                        <option value="15">Meio Pesado</option>
-                        <option value="16">Pesado</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <select name="category_f" id="F_categ" class="hide select" required>
+                    <option value="">Selecione a categoria</option>
+                    <option value="10">Galo</option>
+                    <option value="11">Pluma</option>
+                    <option value="12">Pena</option>
+                    <option value="13">Leve</option>
+                    <option value="14">Médio</option>
+                    <option value="15">Meio Pesado</option>
+                    <option value="16">Pesado</option>
+                </select>
+            </div>
 
-                <div id="fighters-info">
-                    <p id="lutadores"></p>
-                </div>
+            <div id="fighters-info">
+                <p id="lutadores"></p>
+            </div>
 
-                <button type="submit" class="btn-primary">Gerar Chaveamento</button>
-            </form>
-        </section>
-
+            <button type="submit" class="btn-primary">Gerar Chaveamento</button>
+        </form>
+    </section>
+</main>

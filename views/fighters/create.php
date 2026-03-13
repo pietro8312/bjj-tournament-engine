@@ -1,16 +1,11 @@
 <?php
+    require_once __DIR__ . '/../../config/url.php';
+    require_once CONFIG_PATH . 'assets.php';
+    add_css('FighterAdd.css');
     require '../../models/fighter.php';
+    require VIEWS_PATH . 'Layout/header.php'
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/FighterAdd.css">
-    <title>Document</title>
-</head>
-<body>
     <section class="fighter-form">
         <h1>Registrar Lutador</h1>
         <form action="../../controllers/fighterController.php" method="POST" class="single">
