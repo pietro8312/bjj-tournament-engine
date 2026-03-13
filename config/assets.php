@@ -13,7 +13,7 @@
         global $css_stack;
 
         foreach ($css_stack as $cs) {
-            echo '<link rel="stylesheet" href="assets/' . $cs . '">' . PHP_EOL;
+            echo '<link rel="stylesheet" href="' . ASSETS_URL . $cs . '">' . PHP_EOL;
         }
     }
 ?>
