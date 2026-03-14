@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use FFI\Exception;
+
     require_once __DIR__ . '/../config/connection.php';
     
     class TournamentMatch{
@@ -44,13 +47,34 @@
         }
 
         public static function setWinner($conn, $id, $winner_id) {
-            $stmt = $conn->prepare("
-                UPDATE matches 
-                SET winner_id = ?
-                WHERE id  = ?
-            ");
+                # settar o winner funcionando
+                $stmt = $conn->prepare("
+                    UPDATE matches 
+                    SET winner_id = ?
+                    WHERE id  = ?
+                ");
 
-            return $stmt->execute([$winner_id, $id]);
+                $stmt->execute([$winner_id, $id]);
+
+                #chama as outras infos do match
+                $stmt = $conn->prepare("
+                    SELECT next_match_id, next_match_position
+                    FROM matches
+                    WHERE id = ?
+                ");
+
+                $stmt->execute([$id]);
+                $match = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                if($match && !empty($match['next_match_id'])){
+                    $column = ($match['next_match_position'] === 'red') ? 'fighter_red_id' : 'fighter_blue_id';
+                    $stmt = $conn->prepare("
+                        UPDATE matches
+                        SET $column = ?
+                        WHERE id = ?
+                    ");
+                    $stmt->execute([$winner_id, $match['next_match_id']]);
+                }
         }
 
         public static function getMatchesByBracket($conn, $bracket_id) {

@@ -26,7 +26,8 @@ if(function_exists('render_css')){
 <?php if($currentPage === 'main.php'): ?>
     <script src="<?= ASSETS_URL ?>main_manager.js" defer></script>
 <?php else :?>
-<script src="<?= ASSETS_URL ?>/bracket/bracket.js" defer></script>
+    <!--<script src="<?= ASSETS_URL ?>/bracket/bracket.js" defer></script>-->
+    <script src="<?= ASSETS_URL ?>tournament-bracket.js"defer></script>
 <?php endif; ?>
 
 </head>
