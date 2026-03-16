@@ -25,13 +25,12 @@ if($doubleBracket){
                 <div class="round">
                     <?php foreach($roundMatches as $m): ?>
                     <div class="match">
-                        <div class="player">
-                            <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
+                        <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
+                        <div class="player">    
                             <p class="hide fighter_id"><?= htmlspecialchars($m['fighter_red_id']) ?></p>
                             <p class="name"><?= htmlspecialchars($m['red_name'] ?? 'BYE')?></p>
                         </div>
                         <div class="player">
-                            <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
                             <p class="name"><?= htmlspecialchars($m['blue_name'] ?? 'BYE') ?></p>
                             <p class="hide fighter_id"><?= htmlspecialchars($m['fighter_blue_id']) ?></p>
                         </div>
@@ -47,13 +46,12 @@ if($doubleBracket){
                 <div class="round">
                     <?php foreach($roundMatches as $m): ?>
                     <div class="match">
-                        <div class="player">
-                            <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
+                        <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
+                        <div class="player">    
                             <p class="hide fighter_id"><?= htmlspecialchars($m['fighter_red_id']) ?></p>
                             <p class="name"><?= htmlspecialchars($m['red_name'] ?? 'BYE')?></p>
                         </div>
                         <div class="player">
-                            <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
                             <p class="name"><?= htmlspecialchars($m['blue_name'] ?? 'BYE') ?></p>
                             <p class="hide fighter_id"><?= htmlspecialchars($m['fighter_blue_id']) ?></p>
                         </div>
@@ -69,13 +67,12 @@ if($doubleBracket){
             <div class="round">
                 <?php foreach($matches as $m): ?>
                     <div class="match">
-                        <div class="player">
-                            <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
+                        <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
+                        <div class="player">    
                             <p class="hide fighter_id"><?= htmlspecialchars($m['fighter_red_id']) ?></p>
                             <p class="name"><?= htmlspecialchars($m['red_name'] ?? 'BYE')?></p>
                         </div>
                         <div class="player">
-                            <p class="id hide"><?= htmlspecialchars($m['id']) ?></p>
                             <p class="name"><?= htmlspecialchars($m['blue_name'] ?? 'BYE') ?></p>
                             <p class="hide fighter_id"><?= htmlspecialchars($m['fighter_blue_id']) ?></p>
                         </div>
