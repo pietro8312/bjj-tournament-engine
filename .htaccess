@@ -1,0 +1,17 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#bracket
+
+RewriteRule ^bracket$ controllers/bracketController.php?action=all [L]
+
+RewriteRule ^bracket/([0-9]+)$ controllers/bracketController.php?action=show&id=$1 [L]
+
+RewriteRule ^bracket/delete/([0-9]+)$ controllers/bracketController.php?action=delete&id=$1 [L]
+
+RewriteRule ^bracket/([0-9]+)/match$ controllers/bracketController.php?action=scoreboard&match=$1 [L]
+
+#fighter
+
+RewriteRule ^fighters$ views/fighters/create.php [L]
