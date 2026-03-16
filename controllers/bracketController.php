@@ -65,6 +65,8 @@
 
             case 'setWinner':
                 TournamentMatch::setWinner($conn, $_GET['matchId'], $_GET['winner']);
+                TournamentMatch::changeStatus($conn, 'finished', $_GET['matchId']);
+                exit (header("Location: /proj-irene/bracket"));
                 break;
             default:
                 # code...

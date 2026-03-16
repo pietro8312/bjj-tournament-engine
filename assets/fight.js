@@ -1,6 +1,6 @@
-let tempo = 1;
+let tempo = 0;
 const tempoEl = document.querySelector('#tempo p');
-tempoEl.textContent = `0${tempo}:00`;
+tempoEl.textContent = `00:${1}0`;
 
 // Variáveis globais
 let interval = null;

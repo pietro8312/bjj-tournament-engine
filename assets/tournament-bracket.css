@@ -41,6 +41,10 @@ html, body{
     transform-origin:center;
 }
 
+.side{
+    column-gap: 5px;
+}
+
 .left{
     display: flex;
     flex-direction:row !important;
@@ -81,6 +85,52 @@ html, body{
     margin:12px 0;
 
     box-shadow:0 3px 8px rgba(0,0,0,0.08);
+}
+
+.match.inactive {
+    background: #f8fafc;
+    border-color: #d1d5db;
+    opacity: 1;
+}
+
+.match.inactive .player {
+    color: #6b7280;
+}
+
+.match.in_progress {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    background: #ffffff;
+    animation: pulseMatch 1.8s infinite;
+}
+
+.match.in_progress .player {
+    font-weight: 500;
+}
+
+.match.finished {
+    border-color: #16a34a;
+    background: #f0fdf4;
+}
+
+.match.finished .player.winner {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.match.finished {
+    opacity: 0.95;
+}
+
+
+/* ========================= */
+/* ANIMAÇÃO (para in_progress) */
+/* ========================= */
+
+@keyframes pulseMatch {
+    0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.25); }
+    70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
 }
 
 /* PLAYERS */

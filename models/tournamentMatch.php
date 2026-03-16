@@ -79,7 +79,7 @@
                 SELECT *
                 FROM matches
                 WHERE bracket_id = ?
-                ORDER BY round ASC, id ASC;
+                ORDER BY round ASC, id ASC
             ");
 
             $stmt->execute([$bracket_id]);
@@ -104,7 +104,7 @@
         public static function getMatchesById($conn, $match_id){
             $stmt = $conn->prepare("
                 SELECT 
-                    m.*, 
+                    m.*,
                     fr.name as red_name,
                     fb.name as blue_name
                 FROM matches m
@@ -120,6 +120,19 @@
 
             $stmt->execute([$match_id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        public static function changeStatus($conn, $status, $match_id) {
+            $stmt = $conn->prepare("
+                UPDATE matches
+                SET status = ?
+                WHERE id = ?
+                and status != ?
+            ");
+
+            $stmt->execute([$status, $match_id, $status]);
+
+            return $stmt->rowCount();
         }
     }
 ?>

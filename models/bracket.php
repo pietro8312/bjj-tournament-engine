@@ -113,5 +113,18 @@ class Bracket {
         $stmt->execute([$bracket_id]);
         return $stmt->fetchAll();
     }
+
+    public static function changeStatus($conn, $status, $bracket_id) {
+        $stmt = $conn->prepare("
+            UPDATE brackets
+            SET status = ?
+            WHERE id = ?
+            and status != ?
+        ");
+
+        $stmt->execute([$status, $bracket_id, $status]);
+
+        return $stmt->rowCount();
+    }
 }
 ?>

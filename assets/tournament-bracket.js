@@ -7,4 +7,5 @@ matches.forEach(m => {
         // const name = p.querySelector('.name').textContent; nao ta precisando ainda
         const matchId = m.querySelector('.id').textContent;
         document.location.href =`/proj-irene/bracket/${matchId}/match`;
+        console.log(matchId);
 })});

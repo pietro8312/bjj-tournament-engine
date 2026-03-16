@@ -5,14 +5,20 @@
         exit (header('Location, /proj-irene/main.php'));    
     }
     
-    if(!empty($match['red_name'])){
-        $winner = $match['blue_name'];
-    }elseif(!empty($match['blue_name'])){
-        $winner = $match['red_name'];
-    }else{
-        header('Location: ' . $_SERVER['HTTP_REFERER'] ?? BASE_URL . '/bracket');
-        exit;
+    if(!empty($match['fighter_red_id']) && empty($match['fighter_blue_id']) && $match['round'] === '1'){
+        #chama q esse e o winner
+        $winner = $match['fighter_red_id'];
+    }elseif(!empty($match['blue_name']) && empty($match['fighter_red_id']) && $match['round'] === '1'){
+        #chama q esse e o winner
+        $winner = $match['fighter_blue_id'];
     }
+
+    if(!empty($winner)){
+        header('Location: ' . CONTROLLERS_URL . 'bracketController.php?winner=' . $winner . '&matchId=' . $match['id'] . '&action=setWinner');
+    }
+
+    $conn = Database::connect();
+    TournamentMatch::changeStatus($conn, 'in_progress', $match['id']);
 ?>
 
 <!DOCTYPE html>
