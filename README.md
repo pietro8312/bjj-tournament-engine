@@ -35,30 +35,71 @@ The engine allows organizers to **create tournament brackets, control matches, a
 ---
 
 # 📂 Project Structure
+```
 proj-irene
 │
-├── controllers
-│ └── bracketController.php
-│
-├── models
-│ ├── bracket.php
-│ ├── fighter.php
-│ └── tournamentMatch.php
-│
-├── views
-│ └── bracket
-│ ├── create.php
-│ └── show.php
+├── .htaccess
+├── cadastro.php
+├── index.php
+├── main.php
+├── README.md
 │
 ├── assets
-│ ├── global.css
-│ └── style.css
+│   ├── comp.css
+│   ├── edit.css
+│   ├── fight.css
+│   ├── fight.js
+│   ├── FighterAdd.css
+│   ├── fights.css
+│   ├── global.css
+│   ├── header.css
+│   ├── main_manager.js
+│   ├── tournament-bracket.css
+│   ├── tournament-bracket.js
+│   │
+│   └── bracket
+│       ├── bracket.css
+│       ├── bracket.js
+│       └── tournament-create.css
 │
 ├── config
-│ └── url.php
+│   ├── assets.php
+│   ├── connection.php
+│   └── url.php
 │
-└── .htaccess
-
+├── controllers
+│   ├── bracketController.php
+│   ├── fighterController.php
+│   └── matchController.php
+│
+├── images
+│
+├── models
+│   ├── bracket.php
+│   ├── fighter.php
+│   └── tournamentMatch.php
+│
+└── views
+    │
+    ├── bracket
+    │   ├── create.php
+    │   ├── list.php
+    │   ├── scoreboard.php
+    │   ├── show.php
+    │   └── view.php
+    │
+    ├── components
+    │   ├── comp.php
+    │   └── warning.php
+    │
+    ├── fighters
+    │   ├── create.php
+    │   └── list.php
+    │
+    └── Layout
+        ├── footer.php
+        └── header.php
+```
 ---
 
 # ⚙️ Installation
