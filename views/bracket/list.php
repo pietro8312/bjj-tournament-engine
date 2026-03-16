@@ -16,7 +16,7 @@
             <?= $b['status']?>
         </span>
         <div class="bracket-actions">
-            <a href="<?= CONTROLLERS_URL ?>bracketController.php?action=show&id=<?= $b['id'] ?>">Ver chaveamento</a>
+            <a href="<?= BASE_URL ?>/bracket/<?= $b['id'] ?>">Ver chaveamento</a>
         </div>
 
     </div>

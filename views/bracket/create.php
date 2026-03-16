@@ -2,7 +2,7 @@
     <section class="bracket-create">
         <h1>Novo Chaveamento</h1>
         
-        <form id="bracketForm" action="<?= CONTROLLERS_URL ?>bracketController.php" method="POST">
+        <form id="bracketForm" action="<?= BASE_URL ?>/bracket" method="POST">
             <input type="hidden" name="action" value="generate">
             
             <div class="form-group">

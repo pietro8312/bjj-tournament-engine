@@ -25,9 +25,9 @@ if(function_exists('render_css')){
 
 <?php if($currentPage === 'main.php'): ?>
     <script src="<?= ASSETS_URL ?>main_manager.js" defer></script>
-<?php else :?>
-    <!--<script src="<?= ASSETS_URL ?>/bracket/bracket.js" defer></script>-->
-    <script src="<?= ASSETS_URL ?>tournament-bracket.js"defer></script>
+<?php elseif ($currentPage === 'bracketController.php') :?>
+    <script src="<?= ASSETS_URL ?>/bracket/bracket.js" defer></script>
+    <script type="module" src="<?= ASSETS_URL ?>tournament-bracket.js"defer></script>
 <?php endif; ?>
 
 </head>
@@ -40,11 +40,11 @@ if(function_exists('render_css')){
 
         <a href="<?= BASE_URL ?>/main.php">Home</a>
 
-        <a href="<?= CONTROLLERS_URL ?>bracketController.php?action=all">
+        <a href="<?= BASE_URL ?>/bracket">
             Torneios
         </a>
 
-        <a href="<?= BASE_URL ?>/views/fighters/create.php">
+        <a href="<?= BASE_URL ?>/fighters">
             + Lutador
         </a>
 

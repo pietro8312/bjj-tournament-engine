@@ -1,7 +1,4 @@
 <?php
-
-use FFI\Exception;
-
     require_once __DIR__ . '/../config/connection.php';
     
     class TournamentMatch{
@@ -102,6 +99,27 @@ use FFI\Exception;
                 $stmt->execute([$bracket_id, $round]);
 
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function getMatchesById($conn, $match_id){
+            $stmt = $conn->prepare("
+                SELECT 
+                    m.*, 
+                    fr.name as red_name,
+                    fb.name as blue_name
+                FROM matches m
+
+                LEFT JOIN  fighters fr
+                ON m.fighter_red_id = fr.id
+
+                LEFT JOIN fighters fb
+                ON m.fighter_blue_id = fb.id
+
+                WHERE m.id = ?
+            ");
+
+            $stmt->execute([$match_id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
     }
 ?>

@@ -1,66 +1,7 @@
 <?php
     require_once __DIR__ . '../../models/bracket.php';
     require_once __DIR__ . '../../config/connection.php';
-
-    /*
-    ========================
-    FETCH JSON
-    ========================
-    */
-
-    $contentType = $_SERVER["CONTENT_TYPE"] ?? '';
-
-    if(str_contains($contentType, 'application/json')){
-        $conn = Database::connect();
-        $data = json_decode(file_get_contents("php://input"), true);
-
-        if(!$data){
-            echo json_encode([
-                "success" => false,
-                "message" => "Invalid JSON"
-            ]);
-            exit;
-        }
-
-        $action = $data['action'] ?? null;
-
-        switch($action){
-
-            case 'setWinner':
-
-                $match_id = $data['match_id'] ?? null;
-                $fighter_id = $data['fighter_id'] ?? null;
-
-                if(!$match_id || !$fighter_id){
-                    echo json_encode([
-                        "success" => false,
-                        "message" => "Missing parameters"
-                    ]);
-                    exit;
-                }
-
-                TournamentMatch::setWinner($conn, $match_id, $fighter_id);
-
-                echo json_encode([
-                    "success" => true,
-                    "match_id" => $match_id,
-                    "fighter_id" => $fighter_id
-                ]);
-
-            break;
-
-            default:
-
-                echo json_encode([
-                    "success" => false,
-                    "message" => "Invalid action"
-                ]);
-
-            break;
-        }
-        exit;
-    }
-
+    
     /*
     ========================
     POST (forms)
@@ -85,7 +26,7 @@
                 # code...
                 break;
         }
-        header("Location: /proj-irene/controllers/bracketController.php?action=all");
+        header("Location: /proj-irene/bracket");
         exit;
     }
 
@@ -104,7 +45,7 @@
 
             case 'delete':
                 Bracket::delete($conn, $_GET['id']);
-                exit (header("Location: /proj-irene/controllers/bracketController.php?action=all"));
+                exit (header("Location: /proj-irene/bracket"));
 
                 break;
 
@@ -114,6 +55,17 @@
                 if(count($matches) >= 14){
                     $doubleBracket = true;
                 }
+                break;
+            
+            case 'scoreboard':
+                $match = TournamentMatch::getMatchesById($conn, $_GET['match']);
+                require __DIR__ . '../../views/bracket/scoreboard.php';
+                exit;
+                break;
+
+            case 'setWinner':
+                TournamentMatch::setWinner($conn, $_GET['matchId'], $_GET['winner']);
+                break;
             default:
                 # code...
                 break;
