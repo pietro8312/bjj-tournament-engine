@@ -81,17 +81,26 @@ class Bracket {
         shuffle($fighters);
 
         while(count($fighters) < ($matchesCount * 2)){
-            $fighters[] = null;
+            $fighters[] = NULL;
         }
         for ($i=0; $i < $matchesCount; $i++) {
-            $f1 = $fighters[$i * 2]['id'] ?? null;
-            $f2 = $fighters[($i * 2) + 1]['id'] ?? null;
+            $f1 = $fighters[$i * 2]['id'] ?? NULL;
+            $f2 = $fighters[($i * 2) + 1]['id'] ?? NULL;
             TournamentMatch::setFighters($conn, $matches[$i]['id'], $f1, $f2);
         }
     }
 
     public static function all($conn){
-        return $conn->query("SELECT b.*, c.name as cname FROM brackets b INNER JOIN categories c on b.category_id = c.id")->fetchAll();
+        return $conn->query("
+            SELECT 
+                b.*,
+                w.sex,
+                CONCAT(a.name, ' - ', w.name, ' - ', w.sex) AS category_name
+            FROM brackets b 
+            JOIN categories c on b.category_id = c.id
+            JOIN age_division a on c.age_division = a.id
+            JOIN weight_division w on c.weight_division = w.id
+        ")->fetchAll();
     }
 
     public static function allMatches($conn, $bracket_id){

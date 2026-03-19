@@ -2,25 +2,57 @@
 
 class Fighter {
     public static function all($conn) {
-        return $conn->query("SELECT f.*, c.name AS category_name FROM fighters f INNER JOIN categories c ON f.category_id = c.id")->fetchALL();
+        return $conn->query("
+            SELECT 
+                f.*,
+                CONCAT(b.faixa, ' ', COALESCE(b.linha, '')) AS name_faixa,
+                CONCAT(a.name, ' - ', w.name, ' - ', w.sex) AS category
+            FROM fighters f
+                join categories c ON f.category_id = c.id
+                join age_division a ON c.age_division = a.id
+                join weight_division w ON c.weight_division = w.id
+                join belt b ON f.faixa = b.id
+        ")->fetchALL();
     }
 
-    public static function categ($conn, $sex, $peso){
-        // determine category id based on sex and weight
+    public static function categ($conn, $idade, $sex, $peso){
+        // determine category id based ON sex AND weight
         $stmt = $conn ->prepare("
-            SELECT id 
-            FROM categories 
-            WHERE sex = ? AND ? BETWEEN min_weight AND max_weight
-            LIMIT 1
+            SELECT 
+                c.id,
+                a.name AS age_name,
+                w.name AS weight_name,
+                w.sex AS sex,
+                CONCAT(a.name, ' - ', w.name, ' - ', w.sex) AS category_name
+            FROM categories c
+                JOIN age_division a ON c.age_division = a.id
+                JOIN weight_division w ON c.weight_division = w.id
+            WHERE
+                w.sex = ?
+                AND ? BETWEEN a.min_age AND a.max_age
+                AND ? BETWEEN w.min_weight AND w.max_weight
+            LIMIT 1;
         ");
 
-        $stmt->execute([$sex, $peso]);
-        return $stmt->fetchColumn();
 
+        $stmt->execute([$sex, $idade, $peso]);
+        return $stmt->fetchColumn();
+    }
+
+    public static function belt($conn, $faixa, $linha){
+        if(empty($linha)){
+            $stmt = $conn->prepare("SELECT id FROM belt WHERE faixa = ?");
+            $stmt->execute([$faixa]);    
+        }else{
+            $stmt = $conn->prepare("SELECT id FROM belt WHERE faixa = ? AND linha = ?");
+            $stmt->execute([$faixa, $linha]);    
+        }
+
+        return $stmt->fetchColumn();
     }
 
     public static function update($conn, $data) {
-        $category_id = Fighter::categ($conn, $data['sex'], $data['fighter_peso']);
+        $category_id = Fighter::categ($conn, $data['idade'], $data['sex'],$data['fighter_peso']);
 
         if(!$category_id) {
             # function peso invalido
@@ -44,7 +76,8 @@ class Fighter {
     }
 
     public static function create($conn, $data) {
-        $category_id = Fighter::categ($conn, $data['sex'], $data['fighter_peso']);
+        $category_id = Fighter::categ($conn, $data['idade'], $data['sex'], $data['fighter_peso']);
+        $faixa = Fighter::belt($conn, $data['faixa'], $data['linha']);
 
         if (!$category_id) {
             // peso invalido, caller should handle this
@@ -55,18 +88,20 @@ class Fighter {
             VALUES (?, ?, ?, ?, ?)
         ");
 
+        var_dump($faixa);
+
         return $stmt->execute([
             $data['fighter_name'],
             $data['fighter_peso'],
             $data['sex'],
-            $data['faixa'],
+            $faixa,
             $category_id
         ]);
     }
 
     public static function delete($conn, $id){
         $stmt = $conn->prepare("
-            delete from fighters where id = ?
+            DELETE FROM fighters WHERE id = ?
         ");
 
         return $stmt->execute([$id]);
@@ -75,15 +110,12 @@ class Fighter {
     public static function search($conn, $params) {
         $stmt = $conn->prepare("
             SELECT 
-                f.name,
-                f.weight,
-                f.sex,
-                f.faixa,
-                c.name AS category_name
-            FROM 
-                fighters f
-            INNER JOIN 
-                categories c ON f.category_id = c.id
+                f.*,
+                CONCAT(a.name, ' - ', w.name, ' - ', w.sex) AS category
+            FROM fighters f
+                join categories c ON f.category_id = c.id
+                join age_division a ON c.age_division = a.id
+                join weight_division w ON c.weight_division = w.id
             WHERE 
                 f.name LIKE ?
         ");
@@ -113,5 +145,4 @@ class Fighter {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
-
-?>
+?> 

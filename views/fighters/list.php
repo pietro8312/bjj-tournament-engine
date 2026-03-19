@@ -68,12 +68,12 @@
 
     <?php foreach ($fighters as $f) : ?>
         <span class="comp" data-sex="<?= htmlspecialchars($f['sex']) ?>">
-            <i id="hide"><?= htmlspecialchars($f['id']) ?></i>
+            <i class="hide"><?= htmlspecialchars($f['id']) ?></i>
             <h1><?= htmlspecialchars($f['name']) ?></h1>
-            <i id="sex"><?= htmlspecialchars($f['sex']) ?></i>
-            <p id="peso"><?= htmlspecialchars($f['weight']) ?></p>
-            <p id="faixa"><?= htmlspecialchars($f['faixa']) ?></p>
-            <p id="hide"><?= htmlspecialchars($f['category_name']) ?></p>
+            <i class="sex"><?= htmlspecialchars($f['sex']) ?></i>
+            <p class="peso"><?= htmlspecialchars($f['weight']) ?></p>
+            <p class="faixa"><?= htmlspecialchars($f['name_faixa']) ?></p>
+            <p class="categoria"><?= htmlspecialchars($f['category']) ?></p>
         </span>
     <?php endforeach; ?>
     </section>

@@ -60,55 +60,128 @@ body{
 
 .fighter-form input[type="text"],
 .fighter-form input[type="number"],
-.fighter-form input[type="file"] {
+.fighter-form input[type="file"],
+.fighter-form select {
     padding: 0.75rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 0.95rem;
     font-family: inherit;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-.fighter-form input[type="text"]:focus,
-.fighter-form input[type="number"]:focus,
-.fighter-form input[type="file"]:focus {
+/* remove estilo padrão do select */
+.fighter-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+
+    /* seta custom */
+    background-image: linear-gradient(45deg, transparent 50%, #292f35 50%),
+                      linear-gradient(135deg, #292f35 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(50% - 3px),
+                         calc(100% - 15px) calc(50% - 3px);
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+}
+
+/* focus geral */
+.fighter-form input:focus,
+.fighter-form select:focus {
     outline: none;
     border-color: #292f35;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 0 5px rgba(41, 47, 53, 0.3);
+    transform: scale(1.01);
 }
 
-.fighter-form input[type="text"]::placeholder,
-.fighter-form input[type="number"]::placeholder {
+/* hover leve */
+.fighter-form input:hover,
+.fighter-form select:hover {
+    border-color: #999;
+}
+
+.fighter-form input::placeholder {
     color: #999;
 }
 
 /* ===== Radio Button Styles ===== */
 
-.fighter-form span {
-    color: #333;
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-.fighter-form input[type="radio"] {
-    margin-right: 0.5rem;
-    cursor: pointer;
-    width: 18px;
-    height: 18px;
-}
-
-.fighter-form label:has(input[type="radio"]) {
-    display: flex;
-    align-items: center;
-    font-weight: normal;
-    margin-bottom: 0.3rem;
-    cursor: pointer;
-}
-
-.fighter-form div:has(input[type="radio"]) {
+.radio-group {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 0.5rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* ===== select styles =====*/
+/* ===== Select Styles ===== */
+
+.fighter-form div select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+
+    /* remove estilo padrão do navegador */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* seta custom (▼) */
+    background-image: linear-gradient(45deg, transparent 50%, #292f35 50%),
+                      linear-gradient(135deg, #292f35 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(50% - 3px),
+                         calc(100% - 15px) calc(50% - 3px);
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+
+    /* espaço pra seta não sobrepor texto */
+    padding-right: 2rem;
+}
+
+/* foco igual aos inputs */
+.fighter-form div select:focus {
+    outline: none;
+    border-color: #292f35;
+    box-shadow: 0 0 5px rgba(41, 47, 53, 0.3);
+    transform: scale(1.01);
+}
+
+/* hover leve */
+.fighter-form div select:hover {
+    border-color: #999;
+}
+
+/* quando estiver inválido (não selecionado) */
+.fighter-form div select:invalid {
+    color: #999;
+}
+
+/* opções (limitado pelo navegador) */
+.fighter-form div select option {
+    color: #333;
 }
 
 /* ===== Button Styles ===== */
@@ -121,15 +194,16 @@ body{
     border-radius: 5px;
     font-size: 1rem;
     font-weight: 600;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     margin-top: 0.5rem;
 }
 
 .fighter-form button:hover {
     background-color: #191c1f;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 87, 179, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .fighter-form button:active {
@@ -160,9 +234,8 @@ body{
         font-size: 1.1rem;
     }
 
-    .fighter-form input[type="text"],
-    .fighter-form input[type="number"],
-    .fighter-form input[type="file"] {
+    .fighter-form input,
+    .fighter-form select {
         padding: 0.6rem;
         font-size: 0.9rem;
     }
