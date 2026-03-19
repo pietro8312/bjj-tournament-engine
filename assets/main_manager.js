@@ -3,7 +3,7 @@ const body = document.querySelector('body');
 const edit = document.querySelector('#edit');
 
 comp.forEach(c => {
-  sex = c.querySelector('#sex').textContent
+  sex = c.querySelector('.sex').textContent
   if(sex === 'masc'){
     c.style.backgroundColor = '#b5c7eb';
   }else{
@@ -11,12 +11,12 @@ comp.forEach(c => {
   }
 
   c.addEventListener('click', () => {
-    let id = c.querySelector('i#hide').textContent;
+    let id = c.querySelector('i.hide').textContent;
     let nome = c.querySelector('h1').textContent;
-    let sex = c.querySelector('i#sex').textContent;
-    let peso = c.querySelector('p#peso').textContent;
-    let faixa = c.querySelector('p#faixa').textContent;
-    let categoria = c.querySelector('p#hide').textContent;
+    let sex = c.querySelector('i.sex').textContent;
+    let peso = c.querySelector('p.peso').textContent;
+    let faixa = c.querySelector('p.faixa').textContent;
+    let categoria = c.querySelector('p.categoria').textContent;
     call_edit(true, id, nome, sex, peso, faixa, categoria);
   })
 });
@@ -27,14 +27,14 @@ function call_edit(flag, id, name, sex, peso, faixa, categoria){
     document.querySelector('#edit form').style.display = 'grid'; 
     body.style.overflowY = 'hidden';
 
-    edit.querySelector('#id').value = id;
-    edit.querySelector('input#name').value = name;
+    edit.querySelector('.id').value = id;
+    edit.querySelector('input.name').value = name;
     edit.querySelector('p.sex').textContent = sex;
-    edit.querySelector('input#peso').value = peso;
+    edit.querySelector('input.peso').value = peso;
     edit.querySelector('p.faixa').textContent = faixa;
     edit.querySelector('.categ').textContent = categoria;
 
-    form.querySelector('.delete').href = "controllers/fighterController.php?&action=delete&id="+edit.querySelector('#id').value;
+    form.querySelector('.delete').href = "controllers/fighterController.php?&action=delete&id="+edit.querySelector('.id').value;
 
     comp.forEach(c => {
       c.classList.add('hide');

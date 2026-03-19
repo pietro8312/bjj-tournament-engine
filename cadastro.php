@@ -32,34 +32,28 @@
 
             $fighter = explode(',', $c);
 
-            if(count($fighter) !== 3){
+            if(count($fighter) !== 5){
                 continue;
             }
 
             $name = $fighter[0];
             $faixa = $fighter[2];
+            $linha = $fighter[3] ?: null;
             $weight = $fighter[1];
-
-            $cat_id = Fighter::categ($conn, $sex, $weight);
-
-            $cat_id = (INT) $cat_id;
+            $idade = $fighter[4];
 
             $data = [
                 'fighter_name' => $name,
                 'fighter_peso' => $weight,
+                'idade' => $idade,
                 'sex' => $sex,
-                'faixa' => $faixa
+                'faixa' => $faixa,
+                'linha' => $linha
             ];
 
             Fighter::create($conn, $data);
-
-            $sql = 'INSERT INTO fighters (name, sex, faixa, weight, category_id) values (?, ?, ?, ?, ?)';
-
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([$name, $sex, $faixa, $weight, $cat_id]);
         }
+
+        header('location: /proj-irene/main.php');
     }
-    
-    header('location: main.php');
-    exit;
 ?>

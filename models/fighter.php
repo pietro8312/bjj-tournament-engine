@@ -40,12 +40,12 @@ class Fighter {
     }
 
     public static function belt($conn, $faixa, $linha){
-        if(empty($linha)){
+        if($linha === 'null'){
             $stmt = $conn->prepare("SELECT id FROM belt WHERE faixa = ?");
-            $stmt->execute([$faixa]);    
+            $stmt->execute([$faixa]);
         }else{
             $stmt = $conn->prepare("SELECT id FROM belt WHERE faixa = ? AND linha = ?");
-            $stmt->execute([$faixa, $linha]);    
+            $stmt->execute([$faixa, $linha]);
         }
 
         return $stmt->fetchColumn();
@@ -79,8 +79,8 @@ class Fighter {
         $category_id = Fighter::categ($conn, $data['idade'], $data['sex'], $data['fighter_peso']);
         $faixa = Fighter::belt($conn, $data['faixa'], $data['linha']);
 
-        if (!$category_id) {
-            // peso invalido, caller should handle this
+        if (!$data['faixa'] || !$data['idade']) {
+            exit(header(MODELS_PATH . 'fighter.php'));
         }
 
         $stmt = $conn->prepare("
@@ -88,7 +88,6 @@ class Fighter {
             VALUES (?, ?, ?, ?, ?)
         ");
 
-        var_dump($faixa);
 
         return $stmt->execute([
             $data['fighter_name'],

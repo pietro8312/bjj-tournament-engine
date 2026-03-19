@@ -1,5 +1,4 @@
 <?php
-
 require_once '../models/fighter.php';
 require_once '../config/connection.php';
 
@@ -31,7 +30,7 @@ switch ($temp) {
     case 'create':
         FighterController::create();
         break;
-    
+
     case 'update':
         FighterController::update();
         break;
