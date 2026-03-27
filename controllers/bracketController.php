@@ -13,13 +13,21 @@
 
         switch ($_POST['action']) {
             case 'generate':
-                if(empty($_POST['category'])){
+                if($_POST['sex'] === 'masc') {
+                    $postCategory = $_POST['category_m'];
+                }else{
+                    $postCategory = $_POST['category_f'];
+                }
+
+                if(empty($postCategory)){
                     die();
                     # colocar um erro aqui
                 }
-                $bracket_id = Bracket::create($conn, $_POST['category']);
-                Bracket::generate($conn, $_POST['category'], $bracket_id);
-                Bracket::seedFighters($conn, $bracket_id, $_POST['category']);
+
+                $category = Fighter::easyCateg($conn, $postCategory, $_POST['age_division']);
+                $bracket_id = Bracket::create($conn, $category, $_POST['sex'], $_POST['belt']);
+                Bracket::generate($conn, $category, $bracket_id, $_POST['belt']);
+                Bracket::seedFighters($conn, $bracket_id, $category, $_POST['belt']);
                 break;
 
             default:
@@ -56,17 +64,16 @@
                     $doubleBracket = true;
                 }
                 break;
+
+            case 'bracketDone':
+                Bracket::Done($conn, $_GET['bracketId']);
+                exit (header("Location: /proj-irene/bracket"));
+                break;
             
             case 'scoreboard':
                 $match = TournamentMatch::getMatchesById($conn, $_GET['match']);
                 require __DIR__ . '../../views/bracket/scoreboard.php';
                 exit;
-                break;
-
-            case 'setWinner':
-                TournamentMatch::setWinner($conn, $_GET['matchId'], $_GET['winner']);
-                TournamentMatch::changeStatus($conn, 'finished', $_GET['matchId']);
-                exit (header("Location: /proj-irene/bracket"));
                 break;
             default:
                 # code...

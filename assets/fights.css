@@ -3,6 +3,10 @@
     margin: 0;
 }
 
+*.hide{
+    display: none;
+}
+
 body{
     background-color: black;
     color: #fff;

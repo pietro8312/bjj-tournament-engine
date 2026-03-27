@@ -4,13 +4,13 @@ require_once 'fighter.php';
 require_once 'tournamentMatch.php';
 
 class Bracket {
-    public static function create($conn, $category_id){
+    public static function create($conn, $category_id, $sex, $faixa){
         $stmt = $conn->prepare("
-            INSERT INTO brackets (category_id, status)
-            VALUES (?, 'pending')
+            INSERT INTO brackets (category_id, status, sex, faixa)
+            VALUES (?, 'pending', ?, ?)
         ");
 
-        $stmt->execute([$category_id]);
+        $stmt->execute([$category_id, $sex, $faixa]);
 
         return $conn->LastInsertId();
     }
@@ -23,18 +23,22 @@ class Bracket {
         $stmt->execute([$id]);
     }
 
-    public static function generate($conn, $category_id, $bracket_id) {
+    public static function generate($conn, $category_id, $bracket_id, $belt) {
 
-        $fighters = Fighter::countByCategory($conn, $category_id);
+        $fighters = Fighter::fighterByCategory($conn, $category_id, $belt);
 
-        if($fighters < 2){
+        if(Count($fighters) < 2){
             return false;
         }
 
         // tamanho do bracket (2,4,8,16...)
-        $size = pow(2, ceil(log($fighters, 2)));
+        $size = pow(2, ceil(log(Count($fighters), 2)));
 
-        $rounds = (INT) log($size, 2);
+        if($size === 2){
+            $rounds = 2;
+        }else{
+            $rounds = (INT) log($size, 2);
+        }
 
         $previousRound = [];
 
@@ -73,11 +77,11 @@ class Bracket {
         }
     }
 
-    public static function seedFighters($conn, $bracket_id, $category_id){
+    public static function seedFighters($conn, $bracket_id, $category_id, $belt){
         $matches = TournamentMatch::getMatchesByBracketAndRound($conn, $bracket_id, 1);
         $matchesCount = count($matches);
 
-        $fighters = Fighter::fighterByCategory($conn, $category_id);
+        $fighters = Fighter::fighterByCategory($conn, $category_id, $belt);
         shuffle($fighters);
 
         while(count($fighters) < ($matchesCount * 2)){
@@ -121,6 +125,24 @@ class Bracket {
             ");
         $stmt->execute([$bracket_id]);
         return $stmt->fetchAll();
+    }
+
+    public static function done($conn, $bracket_id){
+        $stmt = $conn->prepare("
+            SELECT NOT EXISTS(
+                SELECT 1
+                FROM matches 
+                WHERE bracket_id = ? and status != 'finished'
+            )
+        ");
+
+        $stmt->execute([$bracket_id]);
+
+        $done = $stmt->fetchColumn();
+
+        if($done){
+            Bracket::changeStatus($conn, 'finished', $bracket_id);
+        }
     }
 
     public static function changeStatus($conn, $status, $bracket_id) {

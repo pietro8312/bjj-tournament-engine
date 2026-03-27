@@ -55,7 +55,7 @@ require VIEWS_PATH . 'Layout/header.php';
         <div>
             <label for="linha">Linha</label>
             <select id="linha" name="linha">
-                <option value="">Selecione</option>
+                <option value="null">Selecione</option>
                 <option value="preta">Linha preta</option>
                 <option value="branca">Linha branca</option>
             </select>

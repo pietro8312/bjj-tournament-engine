@@ -45,7 +45,7 @@ switch ($temp) {
 
         $category = $_POST['category'];
 
-        $fighters = (int) Fighter::countByCategory($conn, $category);
+        $fighters = (int) Fighter::countByCategory($conn, $_POST['category'], $_POST['belt'], $_POST['age_division']);
 
         echo json_encode([
             "fighters" => $fighters
