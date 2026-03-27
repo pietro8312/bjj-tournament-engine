@@ -1,7 +1,7 @@
-<?php require_once __DIR__ . '/../../config/url.php'; ?>
-
-<?php
-$currentPage = basename($_SERVER['SCRIPT_NAME']);
+<?php 
+    require_once __DIR__ . '/../../config/url.php'; 
+    require_once CONFIG_PATH . 'assets.php';
+    $currentPage = basename($_SERVER['SCRIPT_NAME']);
 ?>
 
 <!DOCTYPE html>
@@ -21,15 +21,11 @@ $currentPage = basename($_SERVER['SCRIPT_NAME']);
 if(function_exists('render_css')){
     render_css();
 }
-?>
 
-<?php if($currentPage === 'main.php'): ?>
-    <script src="<?= ASSETS_URL ?>main_manager.js" defer></script>
-    <link rel="stylesheet" href="<?= ASSETS_URL ?>edit.css">
-<?php elseif ($currentPage === 'bracketController.php') :?>
-    <script src="<?= ASSETS_URL ?>/bracket/bracket.js" defer></script>
-    <script type="module" src="<?= ASSETS_URL ?>tournament-bracket.js"defer></script>
-<?php endif; ?>
+if(function_exists('render_js')){
+    render_js();
+}
+?>
 
 </head>
 

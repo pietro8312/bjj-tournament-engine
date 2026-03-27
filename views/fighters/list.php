@@ -1,4 +1,8 @@
-<?php add_css('comp.css'); require 'views/Layout/header.php';?>
+<?php 
+    add_css('comp.css'); 
+    add_js('main_manager.js');
+    require 'views/Layout/header.php';
+?>
 
 <?php if(!empty($fighters)):?>
     <section id="comp_area">
