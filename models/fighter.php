@@ -82,10 +82,11 @@ class Fighter {
     }
 
     public static function update($conn, $data) {
-        $category_id = Fighter::categ($conn, $data['idade'], $data['sex'],$data['fighter_peso']);
+        $category_id = Fighter::categ($conn, $data['age'], $data['sex'],$data['fighter_peso']);
 
-        if(!$category_id) {
+        if($category_id === 0) {
             # function peso invalido
+            exit();
         }
 
         $stmt = $conn->prepare("
@@ -98,7 +99,7 @@ class Fighter {
             $data['fighter_name'],
             $data['fighter_peso'],
             $data['sex'],
-            $data['faixa'],
+            $data['belt'],
             $category_id,
             $data['fighter_id']
         ]);
@@ -174,6 +175,24 @@ class Fighter {
 
         $stmt->execute([$faixa, $category_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function fighterById($conn, $id) {
+        $stmt = $conn->prepare("
+            SELECT 
+                f.*,
+                CONCAT(b.faixa, ' ', COALESCE(b.linha, '')) AS name_faixa,
+                CONCAT(a.name, ' - ', w.name, ' - ', w.sex) AS category
+            FROM fighters f
+                join categories c ON f.category_id = c.id
+                join age_division a ON c.age_division = a.id
+                join weight_division w ON c.weight_division = w.id
+                join belt b ON f.faixa = b.id
+            WHERE 
+                f.id = ?
+        ");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 ?> 
