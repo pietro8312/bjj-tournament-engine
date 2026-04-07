@@ -4,6 +4,7 @@ const sex = form.querySelector('.sex')
 form.querySelector('input#inputSex').value = (form.querySelector('p.sex').textContent).trim()
 let sexes = ['fem', 'masc']
 sex.addEventListener('click', () => {
+  sex.textContent = sex.textContent.trim()
   if(sex.textContent === sexes[0]){
     sex.textContent = sexes[1];
   }else{

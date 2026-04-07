@@ -83,7 +83,9 @@ class Fighter {
 
     public static function update($conn, $data) {
         $category_id = Fighter::categ($conn, $data['age'], $data['sex'],$data['fighter_peso']);
+        var_dump($data);
 
+        var_dump($category_id);
         if($category_id === 0) {
             # function peso invalido
             exit();
@@ -91,7 +93,7 @@ class Fighter {
 
         $stmt = $conn->prepare("
             UPDATE fighters f
-            SET f.name = ?, f.weight = ?, f.sex = ?, f.faixa = ?, f.category_id = ?
+            SET f.name = ?, f.weight = ?, f.sex = ?, f.age = ?, f.faixa = ?, f.category_id = ?
             WHERE id = ?
         ");
         
@@ -99,6 +101,7 @@ class Fighter {
             $data['fighter_name'],
             $data['fighter_peso'],
             $data['sex'],
+            $data['age'],
             $data['belt'],
             $category_id,
             $data['fighter_id']
