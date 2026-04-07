@@ -117,38 +117,36 @@ form *{
     font-size: 18px;
     font-weight: 600;
     justify-self: center;
-    user-select: none;
 }
 
-.faixa::before, .faixa::after{
-    display: block;
+.faixa:hover{
+    /*border-bottom: 1px solid;*/
+}
+
+#divfaixa{
+    grid-area: faixa;
+    display: flex;
+    align-items: center;
+}
+
+div#divfaixa::after, div#divfaixa::before{
     content: "";
-    height: 3px;
-    margin: 0 5px;
-    width: 100px;
-    background: #ffffff;
-    border: 1px solid #8f9191;
+    height: 25px;
+    width: 65px;
+    display: flex;
+        background: linear-gradient(
+        to bottom,
+        var(--cor-faixa) 0%,
+        var(--cor-faixa) 45%,
+        var(--cor-linha) 45%,
+        var(--cor-linha) 55%,
+        var(--cor-faixa) 55%,
+        var(--cor-faixa) 100%
+    );
+
+    border: 1px solid #b6b6b6a6;
 }
 
-.faixa.preta::before, .faixa.preta::after{
-    background-color: black;
-}
-
-.faixa.azul::before, .faixa.azul::after{
-    background-color: blue;
-}
-
-.faixa.roxa::before, .faixa.roxa::after{
-    background-color: purple;
-}
-
-.faixa.marrom::before, .faixa.marrom::after{
-    background-color: rgb(44, 12, 12);
-}
-
-.faixa.branca::before, .faixa.branca::after{
-    background-color: #fff;
-}
 
 span.btn{
     display: flex;

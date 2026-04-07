@@ -63,26 +63,30 @@
         value="<?=htmlspecialchars($fighter['weight'])?>"
     >
 
-    <select name="belt" id="belt" required>
-        <option value="">Selecione a faixa</option>
-        <option value="18">Branca</option>
-        <option value="19">Cinza linha branca</option>
-        <option value="20">Cinza</option>
-        <option value="21">Cinza linha preta</option>
-        <option value="22">Amarela linha branca</option>
-        <option value="23">Amarela</option>
-        <option value="24">Amarela linha preta</option>
-        <option value="25">Laranja linha branca</option>
-        <option value="26">Laranja</option>
-        <option value="27">Laranja linha preta</option>
-        <option value="28">Verde linha branca</option>
-        <option value="29">Verde</option>
-        <option value="30">Verde linha preta</option>
-        <option value="31">Azul</option>
-        <option value="32">Roxa</option>
-        <option value="33">Marrom</option>
-        <option value="34">Preta</option>
-    </select>
+    <i class="hide" id="defaultFaixa"><?=htmlspecialchars($fighter['faixa'])?></i>
+
+    <div id="divfaixa">
+        <select class="faixa" name="belt" id="belt" required>
+            <option value="">Selecione a faixa</option>
+            <option value="18">Branca</option>
+            <option value="19">Cinza linha branca</option>
+            <option value="20">Cinza</option>
+            <option value="21">Cinza linha preta</option>
+            <option value="22">Amarela linha branca</option>
+            <option value="23">Amarela</option>
+            <option value="24">Amarela linha preta</option>
+            <option value="25">Laranja linha branca</option>
+            <option value="26">Laranja</option>
+            <option value="27">Laranja linha preta</option>
+            <option value="28">Verde linha branca</option>
+            <option value="29">Verde</option>
+            <option value="30">Verde linha preta</option>
+            <option value="31">Azul</option>
+            <option value="32">Roxa</option>
+            <option value="33">Marrom</option>
+            <option value="34">Preta</option>
+        </select>
+    </div>
 
     <input type="hidden" class="hide" name="sex" id="inputSex" value="">
     <span class="btn">
