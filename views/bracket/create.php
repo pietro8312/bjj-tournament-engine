@@ -1,7 +1,12 @@
 <main>
     <section class="bracket-create">
 
-        <!-- <form id="bracketForm" action="<?= BASE_URL ?>/bracket" method="POST">
+        <h1>
+            Chaveamento Auto
+            <svg class="toggle" width="24" height="24" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="black" stroke-width="3" fill="none"/></svg>
+        </h1>
+
+        <form id="bracketForm" class="selected" action="<?= BASE_URL ?>/bracket" method="POST">
             <input type="hidden" name="action" value="generateAll">
 
             <div class="form-group">
@@ -16,9 +21,9 @@
             <div class="form-group">
                 <label>Mínimo de atletas:</label>
                 <input type="number" name="min_fighters" value="2" min="2">
-            </div> -->
+            </div>
 
-            <!-- <div class="form-group">
+            <div class="form-group">
                 <label>Tipo de chave:</label>
                 <select name="bracket_type">
                     <option value="single">Eliminação simples</option>
@@ -58,10 +63,13 @@
                 <button class="btn-primary" type="submit">Gerar</button>
             </div>
         </form>
-        -->
+    </section>
 
-        <h1>Novo Chaveamento</h1>
-        
+    <section class="bracket-create">
+        <h1>
+            Chaveamento Manual
+            <svg class="toggle" width="24" height="24" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="black" stroke-width="3" fill="none"/></svg>
+        </h1>
         <form id="bracketForm" action="<?= BASE_URL ?>/bracket" method="POST">
             <input type="hidden" name="action" value="generate">
             
@@ -126,7 +134,6 @@
 
                 </select>
             </div>
-
            
             <div class="form-group">
                 <select name="category_f" id="F_categ" class="hide select">

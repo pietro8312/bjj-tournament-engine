@@ -46,9 +46,13 @@ main, .bracket-create, .brackets-list {
 /* ===== Form Structure ===== */
 
 #bracketForm {
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+#bracketForm.selected{
+    display: flex;
 }
 
 .form-group {
@@ -61,6 +65,21 @@ main, .bracket-create, .brackets-list {
     font-weight: 600;
     color: #292f35;
     font-size: 1rem;
+}
+
+.toggle{
+    margin: 2px 0 0 10px;
+}
+
+.toggle:hover{
+    scale: 130%;
+    transition: .1s ease-in;
+}
+
+h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Input padrão */

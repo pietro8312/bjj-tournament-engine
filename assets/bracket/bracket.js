@@ -1,27 +1,21 @@
-const bracketForm = document.getElementById('bracketForm');
-const sex = document.getElementById('sex');
-const fem_categ = document.getElementById('F_categ');
-const mas_categ = document.getElementById('M_categ');
-
-const lutadores = document.getElementById('lutadores');
-let category;
-
-// controlar qual categoria aparece
-sex.addEventListener('change', () => {
-
-    fem_categ.classList.add('hide');
-    mas_categ.classList.add('hide');
-
-    fem_categ.required = false;
-    mas_categ.required = false;
-
-    if(sex.value === 'fem'){
-        fem_categ.classList.remove('hide');
-        fem_categ.required = true;
-    }
-    else if(sex.value === 'masc'){
-        mas_categ.classList.remove('hide');
-        mas_categ.required = true;
-    }
-
+let bracketsF = document.querySelectorAll('#bracketForm');
+let toggles = document.querySelectorAll('h1 .toggle');
+toggles.forEach((t, index) => {
+    t.addEventListener('click', () => {
+        if(bracketsF[index].classList.contains('selected')){
+            bracketsF[index].classList.remove('selected');
+            toggles[index].style.rotate = 180 + 'deg'
+        }else{
+            bracketsF[index].classList.add('selected');
+            toggles[index].style.rotate = 0 + 'deg'
+        }
+    })
 });
+
+bracketsF.forEach((bf, index) => {
+    if(bf.classList.contains('selected')){
+            toggles[index].style.rotate = 0 + 'deg'
+        }else{
+            toggles[index].style.rotate = 180 + 'deg'
+    }
+})
